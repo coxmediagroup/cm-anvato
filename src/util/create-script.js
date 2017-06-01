@@ -8,7 +8,7 @@ module.exports = function (id, done) {
     script.defer = true;
     script.setAttribute('data-anvp', JSON.stringify({
         pInstance: id
-    });
+    }));
     script.onload = function () {
         /**
          * Anvato's code looks for `data-anvp` attribute when loading players. Now

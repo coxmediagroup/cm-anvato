@@ -51,7 +51,7 @@ module.exports = function (video, id, vpxTopics, vpxCategories) {
     // Log this video's ad targeting for traffickers to use.
     console.info(
         '\n/-------- VIDEO AD TARGETING --------/\n' +
-        ' - ' + video.def_title + '\n' +
+        video.def_title + '\n' +
         JSON.stringify(config.keyValues, null, 3) + '\n' +
         ' - Anvato MCP:\n\t[TAGS] ' + video.tags + '\n' +
         '\t[CATEGORIES] ' + video.categories + '\n' +

@@ -11,5 +11,5 @@ require('./extensions/metrics.js');
 
 // Load any uninitialized Anvato players. Recurses for each player
 // because Anvato is the worst.
-var loadNextPlayer = require('./load-next-player.js'),
+var loadNextPlayer = require('./load-next-player.js');
 loadNextPlayer();
