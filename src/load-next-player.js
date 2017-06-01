@@ -1,6 +1,6 @@
 var $ = require('jquery'),
     setupPlayer = require('./setup-player.js'),
-    createScript = require('./create-script.js'),
+    createScript = require('./util/create-script.js'),
     playerCount = 0;
 
 /**

@@ -1,5 +1,5 @@
-var parseSettings = require('./parse-settings.js'),
-    buildAdConfig = require('./build-ad-config.js');
+var parseSettings = require('./util/parse-settings.js'),
+    buildAdConfig = require('./extensions/build-ad-config.js');
 
 /**
  * @param {string} id
