@@ -3,7 +3,7 @@
  * @return {Object<boolean, boolean>} Autoplay and mute settings for this player.
  */
 module.exports = function (player) {
-    let topics = player.data('topics') || '',
+    var topics = player.data('topics') || '',
         autoplay = player.data('autoplay') || false,
         muted = player.data('muted') || false;
     topics = topics.split(',');
