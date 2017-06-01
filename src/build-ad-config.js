@@ -24,7 +24,7 @@ module.exports = function (video, id, vpxTopics, vpxCategories) {
 
     // Build the new DFP plugin config.
     var config = {
-        adTagUrl: cmg.anvatoConf.adTagUrl,
+        adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]',
         keyValues: {
             category: categories,
             video: video.upload_id,

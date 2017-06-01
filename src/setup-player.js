@@ -34,6 +34,11 @@ module.exports = function loadPlayer(id, player) {
             };
         },
         onReady: function (player) {
+            // No idea what this is, but Shaun wants it here.
+            window._cbv = window._cbv || [];
+            window._cbv.push(player);
+
+            // Mute player if requested.
             if (settings.muted) {
                 player.mute();
             }
