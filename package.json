@@ -1,0 +1,14 @@
+{
+  "name": "cm-anvato",
+  "version": "1.0.0",
+  "main": "src/anvato.js",
+  "dependencies": {
+    "jquery": "*"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coxmediagroup/cm-anvato.git"
+  },
+  "author": "Dan Cobb <dan.cobb@coxinc.com>"
+}
