@@ -1,5 +1,6 @@
 var parseSettings = require('./util/parse-settings.js'),
-    buildAdConfig = require('./extensions/build-ad-config.js');
+    buildAdConfig = require('./extensions/build-ad-config.js'),
+    scrubMetadata = require('./util/scrub-metadata.js');
 
 /**
  * @param {string} id
@@ -23,7 +24,7 @@ module.exports = function loadPlayer(id, player) {
                 plugins: {
                     dfp: {
                         clientSide: buildAdConfig(
-                            video,
+                            scrubMetadata(video),
                             id,
                             // Only the first video played uses the VPX's topics and categories.
                             playCount === 1 ? player.data('topics') : [],

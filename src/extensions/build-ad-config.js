@@ -19,7 +19,7 @@ module.exports = function (video, id, vpxTopics, vpxCategories) {
     var categories = [].concat(
         cmg.adconf.targeting.categories,
         vpxCategories,
-        video.categories.join(',')
+        video.categories
     ).toString();
 
     // Build the new DFP plugin config.
