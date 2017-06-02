@@ -1,6 +1,6 @@
 {
   "name": "cm-anvato",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "src/anvato.js",
   "dependencies": {
     "jquery": "*"
