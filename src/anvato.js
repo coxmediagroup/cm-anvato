@@ -9,7 +9,5 @@ require('./set-common-config.js');
 // Setup video metrics.
 require('./extensions/metrics.js');
 
-// Load any uninitialized Anvato players. Recurses for each player
-// because Anvato is the worst.
-var loadNextPlayer = require('./load-next-player.js');
-loadNextPlayer();
+// Load config and scripts for all the players.
+require('./load-players.js');
