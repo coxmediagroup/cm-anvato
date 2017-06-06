@@ -7,5 +7,5 @@ module.exports = function (id) {
         pInstance: id
     }));
     script.src = 'https://w3.cdn.anvato.net/player/prod/v3/scripts/anvload.js';
-    document.write(script);
+    document.write(script.outerHTML);
 };
