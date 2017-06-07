@@ -25,6 +25,10 @@ anvp.common = {
 
 // Create the customMetadata object if the metrics object is available.
 if (DDO) {
+    DDO.pageData = DDO.pageData || {};
+    DDO.siteData = DDO.siteData || {};
+    DDO.contentData = DDO.contentData || {};
+
     anvp.common.config.customMetadata = {
         video: {
             pageName: DDO.pageData.pageName,
