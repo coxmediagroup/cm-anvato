@@ -5,7 +5,7 @@ var mergeLeft = require('./util/map-merge-left.js'),
 anvp.common = anvp.common || {};
 cmg.anvatoConf = cmg.anvatoConf || {};
 
-/**
+/*
  * Create the common config object. Shallow merges in any existing settings
  * that have already been applied to the global anvp object.
  */
