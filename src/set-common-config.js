@@ -1,27 +1,30 @@
-var anvp = window.anvp = window.anvp || {},
+var mergeLeft = require('./util/map-merge-left.js'),
+    anvp = window.anvp = window.anvp || {},
     DDO = window.DDO,
     cmg = window.cmg || {};
+anvp.common = anvp.common || {};
 cmg.anvatoConf = cmg.anvatoConf || {};
 
-// Set the common player config.
-anvp.common = {
-    config: {
-        accessKey: cmg.anvatoConf.accessKey,
-        token: ' ',
-        width: '100%',
-        height: '56.25%',
-        mcp: 'anv',
-        autoplay: false,
-        volume: 0.5,
-        recom: true,
-        plugins: {
-            comscore: {
-                clientId: 6035944
-            }
-        },
-        profile: 'cox'
-    }
-};
+/**
+ * Create the common config object. Shallow merges in any existing settings
+ * that have already been applied to the global anvp object.
+ */
+anvp.common.config = mergeLeft({
+    accessKey: cmg.anvatoConf.accessKey,
+    token: ' ',
+    width: '100%',
+    height: '56.25%',
+    mcp: 'anv',
+    autoplay: false,
+    volume: 0.5,
+    recom: true,
+    plugins: {
+        comscore: {
+            clientId: 6035944
+        }
+    },
+    profile: 'cox'
+}, anvp.common.config);
 
 // Create the customMetadata object if the metrics object is available.
 if (DDO && DDO.pageData && DDO.siteData && DDO.contentData) {

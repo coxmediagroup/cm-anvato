@@ -1,4 +1,5 @@
 var $ = require('jquery'),
+    handler = require('../util/event-handler.js'),
     pubsub = window.pubsub,
     anvp = window.anvp = window.anvp || {};
 
@@ -10,10 +11,10 @@ anvp.listener = function (e) {
     var player = anvp[e.sender];
 
     /**
-     * Trigger any player event on the window for non-metrics code to use.
+     * Trigger any player event for non-metrics code to use.
      * Video playlists use these events.
      */
-    $(window).trigger('anvato', [e]);
+    handler.trigger(e.name, e);
 
     // Record player-related metrics.
     switch (e.name) {

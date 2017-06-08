@@ -11,3 +11,6 @@ require('./extensions/metrics.js');
 
 // Load config and scripts for all the players.
 require('./load-players.js');
+
+// Expose the event handler for dependants to use.
+module.exports = require('./util/event-handler.js');
