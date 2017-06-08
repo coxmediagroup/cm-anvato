@@ -35,6 +35,11 @@ module.exports = {
         anvp.common.config[name] = value;
     },
     /**
+     * ## anvato.pauseAll()
+     * @see ./pause-all.js
+     */
+    pauseAll: require('./pause-all.js'),
+    /**
      * ## anvato.on(name, callback)
      * @see ./util/event-handler.js
      */
