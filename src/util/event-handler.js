@@ -5,7 +5,7 @@
 var events = {},
     singles = {};
 
-window.handler = {
+module.exports = {
     /**
      * ## handler.on(name, callback)
      * Bind a callback that executes as many times as the event fires.
