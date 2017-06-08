@@ -6,7 +6,7 @@ var handler = require('./util/event-handler.js');
 
 module.exports = {
     /**
-     * # anvato.setup()
+     * ## anvato.setup()
      * Setup all video players in the page.
      */
     setup: function () {
@@ -25,17 +25,27 @@ module.exports = {
         require('./load-players.js');
     },
     /**
-     * # anvato.on(name, callback)
+     * ## anvato.set(name, value)
+     * Apply new common config. This must be called before `anvato.setup()`.
+     */
+    set: function (name, value) {
+        var anvp = window.anvp = window.anvp || {};
+        anvp.common = anvp.common || {};
+        anvp.common.config = anvp.common.config || {};
+        anvp.common.config[name] = value;
+    },
+    /**
+     * ## anvato.on(name, callback)
      * @see ./util/event-handler.js
      */
     on: handler.on,
     /**
-     * # anvato.one(name, callback)
+     * ## anvato.one(name, callback)
      * @see ./util/event-handler.js
      */
     one: handler.one,
     /**
-     * # anvato.off(name, callback)
+     * ## anvato.off(name, callback)
      * @see ./util/event-handler.js
      */
     off: handler.off
