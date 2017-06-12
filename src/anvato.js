@@ -10,7 +10,7 @@ module.exports = {
      * Setup all video players in the page.
      */
     setup: function () {
-        // Setup and install AnvatoStrategy.
+        // Setup and install AnvatoStrategy (Chartbeat metrics).
         require('./extensions/anvato-strategy.js');
         window._cbv_strategies = window._cbv_strategies || [];
         window._cbv_strategies.push(window.AnvatoStrategy);
