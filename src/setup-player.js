@@ -35,7 +35,7 @@ module.exports = function loadPlayer(id, player) {
             };
         },
         onReady: function (player) {
-            // No idea what this is, but Shaun wants it here.
+            // Add the player to Chartbeat (metrics).
             window._cbv = window._cbv || [];
             window._cbv.push(player);
 
