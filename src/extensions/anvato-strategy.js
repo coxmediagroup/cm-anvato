@@ -345,7 +345,7 @@ AnvatoStrategy.prototype.getViewAdPlayTime = function() {};
  */
 AnvatoStrategy.verify = function(player) {
     try {
-        return player.mergedConfig.baseURL.indexOf("up.anv.bz") >= 0;
+        return player.mergedConfig.baseURL.indexOf('cdn.anvato.net') >= 0;
     } catch(err) {
         return false;
     }
