@@ -16,7 +16,6 @@ function AnvatoStrategy(player) {
     this._currentTime = 0;
 
     player.getThumbnail(function(r){
-        console.log('bobo thumnail', r);
         this._thumbnailURL = r;
     });
 
@@ -39,7 +38,7 @@ AnvatoStrategy.prototype.subscribeEvents = function() {
     var strategy = this;
     var that = this;
     var originalListener = this._player.listener;     // keep original listener
-    
+
     this._player.setListener(generalListener);
 
     function generalListener(evt) {
@@ -69,9 +68,9 @@ AnvatoStrategy.prototype.subscribeEvents = function() {
                 strategy._updateMetadata(evt);
                 break;
             case 'STATE_CHANGE':
-                if (evt.args[0] == "videoPause") {
+                if (evt.args[0] == 'pausedVideoContent') {
                     strategy._currentState = AnvatoStrategy.VideoState.STOPPED;
-                } else if (evt.args[0] == "videoPlay") {
+                } else if (evt.args[0] == 'playingVideoContent') {
                     strategy._currentState = AnvatoStrategy.VideoState.PLAYED;
                 }
                 break;
@@ -94,15 +93,15 @@ AnvatoStrategy.prototype.subscribeEvents = function() {
             case 'FIRST_FRAME_READY':
                 strategy._isReady = true;
                 break;
-            case 'CLIENT_BANDWIDTH': 
+            case 'CLIENT_BANDWIDTH':
                 strategy._clientBandwidth = evt.args[0];
                 break;
-            case 'AD_TIME_UPDATED': 
+            case 'AD_TIME_UPDATED':
                 strategy._currentContentType = AnvatoStrategy.ContentType.AD;
                 break;
         }
     };
-    
+
 };
 
 
@@ -345,7 +344,7 @@ AnvatoStrategy.prototype.getViewAdPlayTime = function() {};
  */
 AnvatoStrategy.verify = function(player) {
     try {
-        return player.mergedConfig.baseURL.indexOf("up.anv.bz") >= 0;
+        return player.mergedConfig.baseURL.indexOf('cdn.anvato.net') >= 0;
     } catch(err) {
         return false;
     }
