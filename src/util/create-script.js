@@ -17,10 +17,13 @@ module.exports = function (id) {
      */
     postscribe(document.body, script.outerHTML, {
         beforeWriteToken: function (token) {
-            var anvp = token.attrs['data-anvp'];
-            if (anvp) {
-                anvp = anvp.replace(/(&quot\;)/g, '"');
-                token.attrs['data-anvp'] = anvp;
+            var anvp;
+            if (token && token.attrs) {
+                anvp = token.attrs['data-anvp'];
+                if (anvp) {
+                    anvp = anvp.replace(/(&quot\;)/g, '"');
+                    token.attrs['data-anvp'] = anvp;
+                }
             }
             return token;
         },
