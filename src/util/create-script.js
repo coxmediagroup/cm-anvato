@@ -1,4 +1,5 @@
-var postscribe = require('postscribe');
+var postscribe = require('postscribe'),
+    $ = require('jquery');
 
 /**
  * @param {string} id Player's HTML id.
@@ -15,20 +16,22 @@ module.exports = function (id) {
      * Write the script to the DOM. Special scrubbing required to support postscribe.
      * @see https://github.com/coxmediagroup/cm-anvato/issues/1
      */
-    postscribe(document.body, script.outerHTML, {
-        beforeWriteToken: function (token) {
-            var anvp;
-            if (token && token.attrs) {
-                anvp = token.attrs['data-anvp'];
-                if (anvp) {
-                    anvp = anvp.replace(/(&quot\;)/g, '"');
-                    token.attrs['data-anvp'] = anvp;
+    $(function () {
+        postscribe(document.body, script.outerHTML, {
+            beforeWriteToken: function (token) {
+                var anvp;
+                if (token && token.attrs) {
+                    anvp = token.attrs['data-anvp'];
+                    if (anvp) {
+                        anvp = anvp.replace(/(&quot\;)/g, '"');
+                        token.attrs['data-anvp'] = anvp;
+                    }
                 }
+                return token;
+            },
+            error: function (err) {
+                console.error('!!!!!\tVIDEO ERROR:', err);
             }
-            return token;
-        },
-        error: function (err) {
-            console.error('!!!!!\tVIDEO ERROR:', err);
-        }
+        });
     });
 };
