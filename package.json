@@ -1,10 +1,9 @@
 {
   "name": "cm-anvato",
-  "version": "2.2.4",
+  "version": "2.2.6",
   "main": "src/anvato.js",
   "dependencies": {
-    "jquery": "*",
-    "postscribe": "2.x"
+    "jquery": "*"
   },
   "devDependencies": {},
   "repository": {
