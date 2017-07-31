@@ -3,8 +3,7 @@
   "version": "2.2.5",
   "main": "src/anvato.js",
   "dependencies": {
-    "jquery": "*",
-    "postscribe": "2.x"
+    "jquery": "*"
   },
   "devDependencies": {},
   "repository": {
