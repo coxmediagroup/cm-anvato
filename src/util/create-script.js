@@ -16,7 +16,7 @@ module.exports = function (id) {
      * Write the script to the DOM. Special scrubbing required to support postscribe.
      * @see https://github.com/coxmediagroup/cm-anvato/issues/1
      */
-    $(function () {
+    $(window).on('load', function () {
         postscribe(document.body, script.outerHTML, {
             beforeWriteToken: function (token) {
                 var anvp;
