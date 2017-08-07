@@ -10,6 +10,9 @@ module.exports = {
      * Setup all video players in the page.
      */
     setup: function () {
+        // Setup NewRelic error reporting.
+        require('./extensions/new-relic.js');
+
         // Setup and install AnvatoStrategy (Chartbeat metrics).
         require('./extensions/anvato-strategy.js');
         window._cbv_strategies = window._cbv_strategies || [];
