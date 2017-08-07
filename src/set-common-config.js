@@ -1,9 +1,7 @@
 var mergeLeft = require('./util/map-merge-left.js'),
     anvp = window.anvp = window.anvp || {},
     DDO = window.DDO,
-    cmg = window.cmg || {};
-anvp.common = anvp.common || {};
-cmg.anvatoConf = cmg.anvatoConf || {};
+    cmg = require('./extensions/cmg.js');
 
 /*
  * Create the common config object. Shallow merges in any existing settings
