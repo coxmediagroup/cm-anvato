@@ -1,8 +1,6 @@
 var parseSettings = require('./util/parse-settings.js'),
     buildAdConfig = require('./extensions/build-ad-config.js'),
-    scrubMetadata = require('./util/scrub-metadata.js'),
-    cmg = window.cmg || {};
-cmg.anvatoConf = cmg.anvatoConf || {};
+    scrubMetadata = require('./util/scrub-metadata.js');
 
 /**
  * @param {string} id
@@ -25,7 +23,6 @@ module.exports = function loadPlayer(id, player) {
             return {
                 plugins: {
                     dfp: {
-                        startTimeout: cmg.anvatoConf.dfpTimeout || 20,
                         clientSide: buildAdConfig(
                             scrubMetadata(video),
                             id,
