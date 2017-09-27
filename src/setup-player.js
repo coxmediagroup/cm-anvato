@@ -36,7 +36,7 @@ module.exports = function loadPlayer(id, player) {
     /**
      * Setup pre-roll settings unless ads are manually disabled with query param.
      */
-    if (!options.ads) {
+    if (!options.noads) {
         anvp[id].onBeforeVideoLoad = function (video) {
             playCount += 1;
 
