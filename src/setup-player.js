@@ -41,7 +41,11 @@ module.exports = function loadPlayer(id, player) {
 
             // Mute player if requested.
             if (settings.muted) {
-                player.mute();
+                try {
+                    player.mute();
+                } catch (err) {
+                    handler.trigger('cmg/error', err);
+                }
             }
         }
     };
