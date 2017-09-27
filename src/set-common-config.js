@@ -16,8 +16,8 @@ anvp.common.config = mergeLeft({
     height: '56.25%',
     mcp: 'anv',
     autoplay: false,
-    volume: 'volume' in options ? options.volume || 0.5,
-    recom: 'recom' in options ? options.recom || true,
+    volume: 'volume' in options ? options.volume : 0.5,
+    recom: 'recom' in options ? options.recom : true,
     plugins: {
         comscore: {
             clientId: 6035944
