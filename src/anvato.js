@@ -28,7 +28,6 @@ module.exports = {
             // Load config and scripts for all the players.
             require('./load-players.js');
         } catch (err) {
-            console.error(err);
             handler.trigger('cmg/error', err);
         }
     },
