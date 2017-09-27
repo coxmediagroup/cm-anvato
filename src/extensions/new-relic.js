@@ -1,4 +1,5 @@
 var handler = require('../util/event-handler.js'),
+    options = require('../util/environment-options.js'),
     start = performance.now(),
     playStarts = {},
     firstPlay = true;
@@ -17,7 +18,8 @@ handler.on('cmg/error', function (err) {
     if (window.newrelic) {
         window.newrelic.addPageAction('cmg_video_error', {
             cmg_video_id: err.name,
-            cmg_video_message: err.message
+            cmg_video_message: err.message,
+            cmg_video_uid: options.uid
         });
     }
 });
@@ -32,7 +34,8 @@ handler.on('AD_STARTED', function (event) {
             cmg_video_title: event.args[1],
             cmg_video_provider: event.args[2],
             cmg_video_load_time: trip(playStarts[event.sender]),
-            cmg_video_timestamp: event.time
+            cmg_video_timestamp: event.time,
+            cmg_video_uid: options.uid
         });
     }
 });
@@ -49,7 +52,8 @@ handler.on('PLAYER_ERROR', function (event) {
             window.newrelic.addPageAction('cmg_video_error', {
                 cmg_video_id: event.args[0],
                 cmg_video_message: event.args[1],
-                cmg_video_timestamp: event.time
+                cmg_video_timestamp: event.time,
+                cmg_video_uid: options.uid
             });
         }
     }
@@ -64,10 +68,13 @@ handler.on('USER_PLAY', function (event) {
             firstPlay = false;
             window.newrelic.addPageAction('cmg_video_player_load', {
                 cmg_video_load_time: trip(start),
-                cmg_video_timestamp: event.time
+                cmg_video_timestamp: event.time,
+                cmg_video_uid: options.uid
             });
         }
-        window.newrelic.addPageAction('cmg_video_play');
+        window.newrelic.addPageAction('cmg_video_play', {
+            cmg_video_uid: options.uid
+        });
         playStarts[event.sender] = performance.now();
     }
 });

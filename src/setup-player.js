@@ -1,6 +1,7 @@
 var parseSettings = require('./util/parse-settings.js'),
     buildAdConfig = require('./extensions/build-ad-config.js'),
-    scrubMetadata = require('./util/scrub-metadata.js');
+    scrubMetadata = require('./util/scrub-metadata.js'),
+    options = require('./util/environment-options.js');
 
 /**
  * @param {string} id
@@ -15,24 +16,6 @@ module.exports = function loadPlayer(id, player) {
         config: {
             video: player.data('videoid'),
             autoplay: settings.autoplay
-        },
-        onBeforeVideoLoad: function (video) {
-            playCount += 1;
-
-            // Update the DFP plugin with new ad targeting.
-            return {
-                plugins: {
-                    dfp: {
-                        clientSide: buildAdConfig(
-                            scrubMetadata(video),
-                            id,
-                            // Only the first video played uses the VPX's topics and categories.
-                            playCount === 1 ? player.data('topics') : [],
-                            playCount === 1 ? player.data('categories') : []
-                        )
-                    }
-                }
-            };
         },
         onReady: function (player) {
             // Add the player to Chartbeat (metrics).
@@ -49,4 +32,28 @@ module.exports = function loadPlayer(id, player) {
             }
         }
     };
+
+    /**
+     * Setup pre-roll settings unless ads are manually disabled with query param.
+     */
+    if (!options.ads) {
+        anvp[id].onBeforeVideoLoad = function (video) {
+            playCount += 1;
+
+            // Update the DFP plugin with new ad targeting.
+            return {
+                plugins: {
+                    dfp: {
+                        clientSide: buildAdConfig(
+                            scrubMetadata(video),
+                            id,
+                            // Only the first video played uses the VPX's topics and categories.
+                            playCount === 1 ? player.data('topics') : [],
+                            playCount === 1 ? player.data('categories') : []
+                        )
+                    }
+                }
+            };
+        };
+    }
 };

@@ -1,3 +1,5 @@
+var options = require('./environment-options.js');
+
 /**
  * @param {jQuery} player The video player.
  * @return {Object<boolean, boolean>} Autoplay and mute settings for this player.
@@ -18,8 +20,11 @@ module.exports = function (player) {
         muted = false;
     }
 
+    /**
+     * Finally apply any manual url query overrides.
+     */
     return {
-        autoplay: autoplay,
-        muted: muted
+        autoplay: 'autoplay' in options ? options.autoplay : autoplay,
+        muted: 'mute' in options ? options.mute : muted
     };
 };

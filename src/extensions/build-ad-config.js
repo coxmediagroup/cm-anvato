@@ -1,4 +1,5 @@
-var cmg = require('./cmg.js');
+var cmg = require('./cmg.js'),
+    options = require('../util/environment-options.js');
 
 /**
  * # buildAdConfig()
@@ -26,29 +27,33 @@ module.exports = function (video, id, vpxTopics, vpxCategories) {
         ).toString();
 
         // Build the new DFP plugin config.
+        // TODO: These overrides need cleanup.
+        var startTimeout = cmg.anvatoConf.dfpTimeout || 20;
         var config = {
-            startTimeout: cmg.anvatoConf.dfpTimeout || 20,
+            startTimeout: 'startTimeout' in options ? options.startTimeout || startTimeout,
+            vastLoadTimeout: 'vastLoadTimeout' in options ? options.vastLoadTimeout || 20,
+            loadVideoTimeout: 'loadVideoTimeout' in options ? options.loadVideoTimeout || 20,
             adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]',
             keyValues: {
                 category: categories,
                 video: video.upload_id,
-                'owner_id': video.owner_id,
+                owner_id: video.owner_id,
                 kw: topics,
                 topics: topics,
                 weather: cmg.adconf.targeting.weather,
-                'temp_range': cmg.adconf.targeting.temp_range,
+                temp_range: cmg.adconf.targeting.temp_range,
                 sky: cmg.adconf.targeting.sky,
-                'obj_type': cmg.adconf.targeting.obj_type,
-                'obj_id': cmg.adconf.targeting.obj_id,
+                obj_type: cmg.adconf.targeting.obj_type,
+                obj_id: cmg.adconf.targeting.obj_id,
                 uuid: cmg.adconf.targeting.uuid,
-                'player_id': id,
+                player_id: id,
                 environ: cmg.adconf.targeting.environ
             },
             macros: {
                 adunit: cmg.adconf.adunit,
                 cmsid: cmg.anvatoConf.cmsid,
                 vid: 'ANV_ANV_' + video.upload_id,
-                'referrer_url': window.location.href
+                referrer_url: window.location.href
             }
         };
 
