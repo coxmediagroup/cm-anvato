@@ -24,7 +24,7 @@ module.exports = function (player) {
      * Finally apply any manual url query overrides.
      */
     return {
-        autoplay: 'autoplay' in options ? options.autoplay : autoplay,
-        muted: 'mute' in options ? options.mute : muted
+        autoplay: 'autoplay' in options ? (options.autoplay === 'true') : autoplay,
+        muted: 'mute' in options ? (options.mute === 'true') : muted
     };
 };
