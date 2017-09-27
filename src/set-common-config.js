@@ -1,7 +1,8 @@
 var mergeLeft = require('./util/map-merge-left.js'),
     anvp = window.anvp = window.anvp || {},
     DDO = window.DDO,
-    cmg = require('./extensions/cmg.js');
+    cmg = require('./extensions/cmg.js'),
+    options = require('./util/environment-options.js');
 anvp.common = anvp.common || {};
 
 /*
@@ -15,8 +16,8 @@ anvp.common.config = mergeLeft({
     height: '56.25%',
     mcp: 'anv',
     autoplay: false,
-    volume: 0.5,
-    recom: true,
+    volume: 'volume' in options ? options.volume : 0.5,
+    recom: 'recom' in options ? options.recom : true,
     plugins: {
         comscore: {
             clientId: 6035944
