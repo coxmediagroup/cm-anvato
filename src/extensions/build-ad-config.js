@@ -30,9 +30,9 @@ module.exports = function (video, id, vpxTopics, vpxCategories) {
         // TODO: These overrides need cleanup.
         var startTimeout = cmg.anvatoConf.dfpTimeout || 20;
         var config = {
-            startTimeout: 'startTimeout' in options ? options.startTimeout : startTimeout,
-            vastLoadTimeout: 'vastLoadTimeout' in options ? options.vastLoadTimeout : 20,
-            loadVideoTimeout: 'loadVideoTimeout' in options ? options.loadVideoTimeout : 20,
+            startTimeout: 'startTimeout' in options ? parseInt(options.startTimeout) : startTimeout,
+            vastLoadTimeout: 'vastLoadTimeout' in options ? parseInt(options.vastLoadTimeout) : 10,
+            loadVideoTimeout: 'loadVideoTimeout' in options ? parseInt(options.loadVideoTimeout) : 10,
             adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]',
             keyValues: {
                 category: categories,
