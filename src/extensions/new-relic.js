@@ -1,8 +1,7 @@
 var handler = require('../util/event-handler.js'),
     options = require('../util/environment-options.js'),
     start = performance.now(),
-    playStarts = {},
-    firstPlay = true;
+    playStarts = {};
 
 // Create a time interval in seconds with 2 decimal place precision.
 function trip(then) {
@@ -60,18 +59,23 @@ handler.on('PLAYER_ERROR', function (event) {
 });
 
 /**
+ * Report player load metrics.
+ */
+handler.on('COMPONENTS_INITIALIZED', function (event) {
+    if (window.newrelic) {
+        window.newrelic.addPageAction('cmg_video_player_load', {
+            cmg_video_load_time: trip(start),
+            cmg_video_timestamp: event.time,
+            cmg_video_uid: options.uid
+        });
+    }
+});
+
+/**
  * Report play events to NewRelic to establish a baseline pulse.
  */
 handler.on('USER_PLAY', function (event) {
     if (window.newrelic) {
-        if (firstPlay) {
-            firstPlay = false;
-            window.newrelic.addPageAction('cmg_video_player_load', {
-                cmg_video_load_time: trip(start),
-                cmg_video_timestamp: event.time,
-                cmg_video_uid: options.uid
-            });
-        }
         window.newrelic.addPageAction('cmg_video_play', {
             cmg_video_uid: options.uid
         });
