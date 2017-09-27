@@ -69,6 +69,15 @@ Disable pre-roll for all players.
 #### ?anvato=uid-&lt;value&gt;
 Tag your NewRelic actions with a custom id.
 
+#### ?anvato=startTimeout-&lt;value&gt;
+Override `startTimeout` player setting.
+
+#### ?anvato=vastLoadTimeout-&lt;value&gt;
+Override `vastLoadTimeout` player setting.
+
+#### ?anvato=loadVideoTimeout-&lt;value&gt;
+Override `loadVideoTimeout` player setting.
+
 ## Contributing
 
 1. Make and commit your changes.
