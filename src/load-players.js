@@ -7,8 +7,10 @@ var $ = require('jquery'),
  * processes the page, it removes the original container and replaces it
  * with the player's iframe.
  */
-$('.anvato-player').each(function (i, el) {
-    var id = el.id = 'p' + i;
-    setupPlayer(id, $(el));
-    createScript(id);
-});
+module.exports = function() {
+    $('.anvato-player').each(function (i, el) {
+        var id = el.id = 'p' + i;
+        setupPlayer(id, $(el));
+        createScript(id);
+    });
+}

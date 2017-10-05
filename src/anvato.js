@@ -20,13 +20,17 @@ module.exports = {
             window._cbv_strategies.push(window.AnvatoStrategy);
 
             // Apply common config for all players.
-            require('./set-common-config.js');
+            if (setCommonConfig = require('./set-common-config.js')) {
+                setCommonConfig();
+            }
 
             // Setup video metrics.
             require('./extensions/metrics.js');
 
             // Load config and scripts for all the players.
-            require('./load-players.js');
+            if (loadPlayers = require('./load-players.js')) {
+                loadPlayers();
+            }
         } catch (err) {
             handler.trigger('cmg/error', err);
         }
