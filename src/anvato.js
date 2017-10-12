@@ -2,7 +2,8 @@
  * # Anvato Video Player
  */
 
-var handler = require('./util/event-handler.js');
+var handler = require('./util/event-handler.js'),
+    loadPlayers = require('./load-players.js');
 
 module.exports = {
     /**
@@ -26,11 +27,18 @@ module.exports = {
             require('./extensions/metrics.js');
 
             // Load config and scripts for all the players.
-            require('./load-players.js');
+            loadPlayers();
         } catch (err) {
             handler.trigger('cmg/error', err);
         }
     },
+    /**
+     * ## anvato.loadPlayers()
+     * Manually load any pending video players. Note this method assumes global
+     * state has finished setting up.
+     * @see `anvato.setup()`
+     */
+    loadPlayers: loadPlayers,
     /**
      * ## anvato.set(name, value)
      * Apply new common config. This must be called before `anvato.setup()`.

@@ -1,9 +1,12 @@
 var parseSettings = require('./util/parse-settings.js'),
     buildAdConfig = require('./extensions/build-ad-config.js'),
     scrubMetadata = require('./util/scrub-metadata.js'),
+    handler = require('./util/event-handler.js'),
     options = require('./util/environment-options.js');
 
 /**
+ * # Setup Player
+ * Create Anvato `anvp` config entry for a new player.
  * @param {string} id
  * @param {jQuery} player
  */
@@ -30,6 +33,12 @@ module.exports = function loadPlayer(id, player) {
                     handler.trigger('cmg/error', err);
                 }
             }
+
+            /**
+             * Trigger the internal ready event to trigger side-effects
+             * from other modules.
+             */
+            handler.trigger('cmg/ready', player);
         }
     };
 
