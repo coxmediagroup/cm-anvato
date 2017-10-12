@@ -24,6 +24,12 @@ Begin loading of all players in the page.
 ```js
 anvato.setup();
 ```
+### anvato.loadPlayers()
+Load additional players separate from the normal in page players. This
+is an option for players loaded through events such as ajax or clicks.
+```js
+anvato.loadPlayers();
+```
 ### anvato.pauseAll()
 Pauses all players in the page.
 ```js
