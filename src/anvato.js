@@ -3,7 +3,8 @@
  */
 
 var handler = require('./util/event-handler.js'),
-    loadPlayers = require('./load-players.js');
+    loadPlayers = require('./load-players.js'),
+    setupMetrics = require('./extensions/metrics.js');
 
 module.exports = {
     /**
@@ -24,7 +25,7 @@ module.exports = {
             require('./set-common-config.js');
 
             // Setup video metrics.
-            require('./extensions/metrics.js');
+            setupMetrics();
 
             // Load config and scripts for all the players.
             loadPlayers();
@@ -39,6 +40,12 @@ module.exports = {
      * @see `anvato.setup()`
      */
     loadPlayers: loadPlayers,
+    /**
+     * ## anvato.setupMetrics()
+     * Manually set up Anvato metrics. Exposed separately for client sites that need metrics,
+     * but set up their videos inline.
+     */
+    setupMetrics: setupMetrics,
     /**
      * ## anvato.set(name, value)
      * Apply new common config. This must be called before `anvato.setup()`.
