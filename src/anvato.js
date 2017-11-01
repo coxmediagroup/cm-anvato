@@ -4,7 +4,7 @@
 
 var handler = require('./util/event-handler.js'),
     loadPlayers = require('./load-players.js'),
-    setupMetrics = function () { require('./extensions/metrics.js') };
+    setupMetrics = require('./extensions/metrics.js');
 
 module.exports = {
     /**

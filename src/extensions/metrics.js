@@ -3,46 +3,58 @@ var $ = require('jquery'),
     pubsub = window.pubsub,
     anvp = window.anvp = window.anvp || {};
 
-window.videoDataRequests = [];
-window.payloadProcessing = false;
-window.queuedPayloads = [];
+/**
+ * Bind metrics to player events.
+ */
+module.exports = function () {
+    window.videoDataRequests = [];
+    window.payloadProcessing = false;
+    window.queuedPayloads = [];
 
-anvp.listener = function (e) {
-    var player = anvp[e.sender];
+    anvp.listener = function (e) {
+        var player = anvp[e.sender];
 
-    /**
-     * Trigger any player event for non-metrics code to use.
-     * Video playlists use these events.
-     */
-    handler.trigger(e.name, e);
+        /**
+         * Trigger any player event for non-metrics code to use.
+         * Video playlists use these events.
+         */
+        handler.trigger(e.name, e);
 
-    // Record player-related metrics.
-    switch (e.name) {
-        case 'METADATA_LOADED' :
-            if (e.args.hasOwnProperty(2)) {
-                if (e.args[2].hasOwnProperty('tags')) {
-                    anvp[e.args[1] + '-topics'] = e.args[2].tags;
+        // Record player-related metrics.
+        switch (e.name) {
+            case 'METADATA_LOADED' :
+                if (e.args.hasOwnProperty(2)) {
+                    if (e.args[2].hasOwnProperty('tags')) {
+                        anvp[e.args[1] + '-topics'] = e.args[2].tags;
+                    }
                 }
-            }
-            break;
-        case 'PLAYING_START':
-            // Ensure `video-start` only fires once per content.
-            if (!player.cmgVideoStart) {
-                player.cmgVideoStart = true;
-                queuePayload(e, 'video-start', Date.now());
-            }
-            break;
-        case 'VIDEO_STARTED':
-            queuePayload(e, 'video-content-play', Date.now());
-            break;
-        case 'USER_PAUSE':
-            queuePayload(e, 'video-pause', Date.now());
-            break;
-        case 'VIDEO_COMPLETED':
-            player.cmgVideoStart = false;
-            queuePayload(e, 'video-complete', Date.now());
-            break;
-    }
+                break;
+            case 'PLAYING_START':
+                // Ensure `video-start` only fires once per content.
+                if (!player.cmgVideoStart) {
+                    player.cmgVideoStart = true;
+                    queuePayload(e, 'video-start', Date.now());
+                }
+                break;
+            case 'VIDEO_STARTED':
+                queuePayload(e, 'video-content-play', Date.now());
+                break;
+            case 'USER_PAUSE':
+                queuePayload(e, 'video-pause', Date.now());
+                break;
+            case 'VIDEO_COMPLETED':
+                player.cmgVideoStart = false;
+                queuePayload(e, 'video-complete', Date.now());
+                break;
+        }
+    };
+
+    pubsub.subscribe('payload_processing_complete', function () {
+        if (window.queuedPayloads.length) {
+            constructAnvatoPayload(window.queuedPayloads[0]['e'], window.queuedPayloads[0]['metricEvent'], window.queuedPayloads[0]['ts']);
+            window.queuedPayloads.shift();
+        }
+    });
 };
 
 function queuePayload(e, metricEvent, ts) {
@@ -56,13 +68,6 @@ function queuePayload(e, metricEvent, ts) {
         });
     }
 }
-
-pubsub.subscribe('payload_processing_complete', function () {
-    if (window.queuedPayloads.length) {
-        constructAnvatoPayload(window.queuedPayloads[0]['e'], window.queuedPayloads[0]['metricEvent'], window.queuedPayloads[0]['ts']);
-        window.queuedPayloads.shift();
-    }
-});
 
 function constructAnvatoPayload(e, metricEvent, ts) {
     window.payloadProcessing = true;
