@@ -3,7 +3,8 @@
  */
 
 var handler = require('./util/event-handler.js'),
-    loadPlayers = require('./load-players.js');
+    loadPlayers = require('./load-players.js'),
+    setupMetrics = require('./extensions/metrics.js');
 
 module.exports = {
     /**
@@ -24,7 +25,7 @@ module.exports = {
             require('./set-common-config.js');
 
             // Setup video metrics.
-            require('./extensions/metrics.js');
+            setupMetrics();
 
             // Load config and scripts for all the players.
             loadPlayers();
