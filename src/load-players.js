@@ -1,22 +1,34 @@
-var loadAsync = require('./actions/load-players-async.js'),
-    loadSync = require('./actions/load-players-sync.js');
+var $ = require('jquery'),
+    setupPlayer = require('./setup-player.js'),
+    handler = require('./util/event-handler.js'),
+    options = require('./util/environment-options.js'),
+    bundle = options.stage ? 'stage' : 'prod',
+    ids = require('./util/id-factory.js');
 
 /**
- * Load in players as fast as possible. Speed is gated by the DOM ready event
- * because of race conditions in the Anvato library.
- *
- * TODO: Once the Anvato global constructor `AnvatoPlayer` is fully released,
- * please remove all `doc.write` and `appendChild` and replace with calls to
- * the global `AnvatoPlayer()`.
- *
- * Players start with class name `anvato-player`. As the Anvato library
- * processes the page, it removes the original container and replaces it
- * with the player's iframe.
+ * Load additional players separate from the normal in page players. This
+ * is an option for players loaded through events such as ajax or clicks.
+ * Players much chain load through their onReady events to avoid collision
+ * in the global state of Anvato's code.
+ * @see ../load-players.js
  */
 module.exports = function () {
-    if (document.readyState === 'loading') {
-        loadSync();
-    } else {
-        loadAsync();
+    var players = $('.anvato-player');
+    if (players.length) {
+        var id = players[0].id = 'p' + ids.next();
+        setupPlayer(id, players.eq(0));
+
+        // Players loaded after DOM has completed must chain load.
+        handler.on('cmg/ready', function (player) {
+            // Recurse after this player is done loading.
+            if (player === window.anvp[id]) {
+                module.exports();
+            }
+        });
+
+        var script = document.createElement('script');
+        script.src = 'https://w3.cdn.anvato.net/player/' + bundle + '/v3/scripts/anvload.js';
+        script.setAttribute('data-anvp', '{"pInstance":"' + id + '"}');
+        document.body.appendChild(script);
     }
 };
