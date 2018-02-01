@@ -11,6 +11,8 @@ var cmg = require('./cmg.js'),
  * @return {object} New DFP plugin config.
  */
 module.exports = function (video, id, vpxTopics, vpxCategories) {
+    var config;
+
     try {
         // Merge all topics.
         var topics = [].concat(
@@ -29,7 +31,7 @@ module.exports = function (video, id, vpxTopics, vpxCategories) {
         // Build the new DFP plugin config.
         // TODO: These overrides need cleanup.
         var startTimeout = cmg.anvatoConf.dfpTimeout || 20;
-        var config = {
+        config = {
             startTimeout: 'startTimeout' in options ? parseInt(options.startTimeout) : startTimeout,
             vastLoadTimeout: 'vastLoadTimeout' in options ? parseInt(options.vastLoadTimeout) : 10,
             loadVideoTimeout: 'loadVideoTimeout' in options ? parseInt(options.loadVideoTimeout) : 10,
