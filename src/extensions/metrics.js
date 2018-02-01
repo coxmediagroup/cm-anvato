@@ -7,6 +7,11 @@ var $ = require('jquery'),
  * Bind metrics to player events.
  */
 module.exports = function () {
+    if (!window.pubsub) {
+        console.warn('[cmAnvato] Cannot find PubSub! Video metrics is OFFLINE.');
+        return;
+    }
+
     window.videoDataRequests = [];
     window.payloadProcessing = false;
     window.queuedPayloads = [];

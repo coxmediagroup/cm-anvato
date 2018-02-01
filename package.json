@@ -6,6 +6,7 @@
     "jquery": "*"
   },
   "devDependencies": {
+    "aliasify": "^2.1.0",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.2.0",
     "grunt-contrib-jshint": "^1.1.0",
@@ -16,5 +17,15 @@
     "type": "git",
     "url": "git+https://github.com/coxmediagroup/cm-anvato.git"
   },
-  "author": "Dan Cobb <dan.cobb@coxinc.com>"
+  "author": "Dan Cobb <dan.cobb@coxinc.com>",
+  "browserify": {
+    "transform": [
+      "aliasify"
+    ]
+  },
+  "aliasify": {
+    "aliases": {
+      "jquery": "./tasks/util/jquery-shim.js"
+    }
+  }
 }

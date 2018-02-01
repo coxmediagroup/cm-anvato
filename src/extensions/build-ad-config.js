@@ -13,6 +13,11 @@ var cmg = require('./cmg.js'),
 module.exports = function (video, id, vpxTopics, vpxCategories) {
     var config;
 
+    if (!cmg.adconf.adunit) {
+        console.warn('[cmAnvato] Cannot find cm-ads! Video ad targeting is OFFLINE.');
+        return;
+    }
+
     try {
         // Merge all topics.
         var topics = [].concat(
