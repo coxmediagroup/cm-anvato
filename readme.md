@@ -6,9 +6,8 @@ Single-point install for the Anvato video player.
 
 This module is also exposed as a global variable in `dist/cmanvato.min.js`.
 
-This JavaScript module is intended for use with these Methode tags:
+This JavaScript module is intended for use with this Methode tag:
 
-    /PortalConfig/common/components/video/anvato-conf.jpt
     /PortalConfig/common/components/video/player.jpt
 
 This module includes support for metrics and ads.
