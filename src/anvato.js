@@ -42,8 +42,7 @@ module.exports = {
     loadPlayers: loadPlayers,
     /**
      * ## anvato.setupMetrics()
-     * Manually set up Anvato metrics. Exposed separately for client sites that need metrics,
-     * but set up their videos inline.
+     * Set up metrics for pages that set up videos manually.
      */
     setupMetrics: setupMetrics,
     /**
