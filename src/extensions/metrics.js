@@ -8,7 +8,7 @@ var $ = require('jquery'),
  */
 module.exports = function () {
     if (!window.pubsub) {
-        console.warn('[cmAnvato] Cannot find PubSub! Video metrics is OFFLINE.');
+        console.warn('[cmAnvato] Cannot find PubSub! Video metrics are OFFLINE.');
         return;
     }
 
