@@ -1,14 +1,32 @@
 {
   "name": "cm-anvato",
-  "version": "2.7.0",
+  "version": "2.8.1",
   "main": "src/anvato.js",
+  "private": true,
   "dependencies": {
     "jquery": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "aliasify": "^2.1.0",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.2.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^3.3.0",
+    "matchdep": "^2.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/coxmediagroup/cm-anvato.git"
   },
-  "author": "Dan Cobb <dan.cobb@coxinc.com>"
+  "author": "Dan Cobb <dan.cobb@coxinc.com>",
+  "browserify": {
+    "transform": [
+      "aliasify"
+    ]
+  },
+  "aliasify": {
+    "aliases": {
+      "jquery": "./tasks/util/jquery-shim.js"
+    }
+  }
 }
