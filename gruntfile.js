@@ -4,6 +4,7 @@ module.exports = function (grunt) {
         'grunt-*',
         '!grunt-template-*'
     ]).forEach(grunt.loadNpmTasks);
+    grunt.loadNpmTasks('methode-publishing');
     grunt.loadTasks('tasks');
 
     grunt.registerTask('default', [

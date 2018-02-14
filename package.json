@@ -1,6 +1,6 @@
 {
   "name": "cm-anvato",
-  "version": "2.8.1",
+  "version": "2.8.2",
   "main": "src/anvato.js",
   "private": true,
   "dependencies": {
@@ -8,11 +8,12 @@
   },
   "devDependencies": {
     "aliasify": "^2.1.0",
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.2",
     "grunt-browserify": "^5.2.0",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.3.0",
-    "matchdep": "^2.0.0"
+    "matchdep": "^2.0.0",
+    "methode-publishing": "github:coxmediagroup/methode-publishing#v1.0.1"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,8 @@
     "aliases": {
       "jquery": "./tasks/util/jquery-shim.js"
     }
+  },
+  "cmg": {
+    "root": "/PortalConfig/common/video/"
   }
 }

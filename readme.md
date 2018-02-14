@@ -8,11 +8,31 @@ This module is also exposed as a global variable in `dist/cmanvato.min.js`.
 
 This JavaScript module is intended for use with this Methode tag:
 
-    /PortalConfig/common/components/video/player.jpt
+    /PortalConfig/common/components/video/<version>/player.jpt
 
 This module includes support for metrics and ads.
 
 Requires ad tags version 3.8.0 or higher.
+
+## Template Include
+```xml
+<!-- Default are autoplay off and not muted. -->
+<p:include webObject="${vpxObject}" styleName="${portalContext.env.anvatoPlayer}" />
+```
+```xml
+<!-- Autoplay and mute settings can be set manually. -->
+<p:include webObject="${vpxObject}" styleName="${portalContext.env.anvatoPlayer}">
+	<p:param name="autoplay" value="true" />
+	<p:param name="muted" value="true" />
+</p:include>
+```
+In this example `portalContext.env.anvatoPlayer` is an environment property that contains the full path to `player.jpt`. Using an environment property will allow your entire site to point at a single version of the player and will allow you to update an entire site to a new version should the need arise.
+Here is an example entry from a site's `environments.properties` file:
+```
+anvatoPlayer = /PortalConfig/common/components/video/2.8.2/player.jpt
+```
+
+## JavaScript API
 
 ### anvato.set(name, value)
 Update the `anvp.common.config` object.
