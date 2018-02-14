@@ -3,11 +3,8 @@
   "version": "2.8.4",
   "main": "src/anvato.js",
   "private": true,
-  "dependencies": {
-    "jquery": "*"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "aliasify": "^2.1.0",
     "grunt": "^1.0.2",
     "grunt-browserify": "^5.2.0",
     "grunt-contrib-jshint": "^1.1.0",
@@ -20,16 +17,6 @@
     "url": "git+https://github.com/coxmediagroup/cm-anvato.git"
   },
   "author": "Dan Cobb <dan.cobb@coxinc.com>",
-  "browserify": {
-    "transform": [
-      "aliasify"
-    ]
-  },
-  "aliasify": {
-    "aliases": {
-      "jquery": "./tasks/util/jquery-shim.js"
-    }
-  },
   "cmg": {
     "root": "/PortalConfig/common/video/"
   }

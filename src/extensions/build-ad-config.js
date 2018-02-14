@@ -8,7 +8,7 @@ var cmg = require('./cmg.js'),
  * @param {object} video Anvato metadata.
  * @param {string} id Player's HTML id.
  * @param {string} cmsid CMS id used for ad content targeting.
- * @param {string} [dfpTimeout] Optional time in seconds for pre-roll timeout override.
+ * @param {integer} [dfpTimeout] Optional time in seconds for pre-roll timeout override.
  * @param {string|array<string>} vpxTopics Topics of the vpx object.
  * @param {string|array<string>} vpxCategories Categories of the vpx object.
  * @return {object} New DFP plugin config.

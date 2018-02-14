@@ -5,9 +5,9 @@ var options = require('./environment-options.js');
  * @return {Object<boolean, boolean>} Autoplay and mute settings for this player.
  */
 module.exports = function (player) {
-    var topics = player.data('topics') || '',
-        autoplay = player.data('autoplay') || false,
-        muted = player.data('muted') || false;
+    var topics = player.getAttribute('data-topics') || '',
+        autoplay = player.getAttribute('data-autoplay') === 'true' || false,
+        muted = player.getAttribute('data-muted') === 'true' || false;
     topics = topics.split(',');
 
     /**
