@@ -1,7 +1,6 @@
 var mergeLeft = require('./util/map-merge-left.js'),
     anvp = window.anvp = window.anvp || {},
     DDO = window.DDO,
-    cmg = require('./extensions/cmg.js'),
     options = require('./util/environment-options.js');
 anvp.common = anvp.common || {};
 
@@ -10,7 +9,6 @@ anvp.common = anvp.common || {};
  * that have already been applied to the global anvp object.
  */
 anvp.common.config = mergeLeft({
-    accessKey: cmg.anvatoConf.accessKey,
     token: ' ',
     width: '100%',
     height: '56.25%',

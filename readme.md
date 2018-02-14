@@ -14,6 +14,19 @@ This module includes support for metrics and ads.
 
 Requires ad tags version 3.8.0 or higher.
 
+## Site Settings
+### anvatoPlayer
+Path to the desired version of `player.jpt` for your site. See description in the [Template Include](#template-include) section below for more detail.
+
+### anvatoAccessKeyV3
+Access key for a given site. This value is provided by the Video team.
+
+### vast_cmsid
+CMS id for a given site. This value is provided by the Ad Operations team.
+
+### anvatoDFPTimeout
+*[Optional]* Override for the 20 second pre-roll timeout. Value in seconds.
+
 ## Template Include
 ```xml
 <!-- Default are autoplay off and not muted. -->

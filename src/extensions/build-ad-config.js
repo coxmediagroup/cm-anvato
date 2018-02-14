@@ -1,16 +1,19 @@
 var cmg = require('./cmg.js'),
-    options = require('../util/environment-options.js');
+    options = require('../util/environment-options.js'),
+    handler = require('../util/event-handler.js');
 
 /**
  * # buildAdConfig()
  * Builds new ad targeting for the current video.
  * @param {object} video Anvato metadata.
  * @param {string} id Player's HTML id.
+ * @param {string} cmsid CMS id used for ad content targeting.
+ * @param {string} [dfpTimeout] Optional time in seconds for pre-roll timeout override.
  * @param {string|array<string>} vpxTopics Topics of the vpx object.
  * @param {string|array<string>} vpxCategories Categories of the vpx object.
  * @return {object} New DFP plugin config.
  */
-module.exports = function (video, id, vpxTopics, vpxCategories) {
+module.exports = function (video, id, cmsid, dfpTimeout, vpxTopics, vpxCategories) {
     var config;
 
     if (!cmg.adconf.adunit) {
@@ -35,7 +38,7 @@ module.exports = function (video, id, vpxTopics, vpxCategories) {
 
         // Build the new DFP plugin config.
         // TODO: These overrides need cleanup.
-        var startTimeout = cmg.anvatoConf.dfpTimeout || 20;
+        var startTimeout = dfpTimeout || 20;
         config = {
             startTimeout: 'startTimeout' in options ? parseInt(options.startTimeout) : startTimeout,
             vastLoadTimeout: 'vastLoadTimeout' in options ? parseInt(options.vastLoadTimeout) : 10,
@@ -58,7 +61,7 @@ module.exports = function (video, id, vpxTopics, vpxCategories) {
             },
             macros: {
                 adunit: cmg.adconf.adunit,
-                cmsid: cmg.anvatoConf.cmsid,
+                cmsid: cmsid,
                 vid: 'ANV_ANV_' + video.upload_id,
                 referrer_url: window.location.href
             }
