@@ -12,16 +12,6 @@
 <p:currentObject metadata="meta" />
 <p:out var="videoId" xvalue="$meta//Anvato/id" />
 
-<%-- Expose Anvato system data to the JS that all players will need. --%>
-<jsmin:script>
-    window.cmg = window.cmg || {};
-    cmg.anvatoConf = {
-        cmsid: ${portalContext.env.vast_cmsid},
-        accessKey: '${portalContext.env.anvatoAccessKeyV3}',
-        dfpTimeout: ${empty portalContext.env.anvatoDFPTimeout ? 20 : portalContext.env.anvatoDFPTimeout}
-    };
-</jsmin:script>
-
 <%-- Drop in the player or report errors to NewRelic. --%>
 <c:choose>
     <c:when test="${empty videoId or videoId eq '0'}">
