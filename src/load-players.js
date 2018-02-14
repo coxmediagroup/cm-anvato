@@ -1,5 +1,4 @@
-var $ = require('jquery'),
-    setupPlayer = require('./setup-player.js'),
+var setupPlayer = require('./setup-player.js'),
     handler = require('./util/event-handler.js'),
     options = require('./util/environment-options.js'),
     bundle = options.stage ? 'stage' : 'prod',
@@ -13,10 +12,10 @@ var $ = require('jquery'),
  * @see ../load-players.js
  */
 module.exports = function () {
-    var players = $('.anvato-player');
+    var players = document.getElementsByClassName('anvato-player');
     if (players.length) {
         var id = players[0].id = 'p' + ids.next();
-        setupPlayer(id, players.eq(0));
+        setupPlayer(id, players[0]);
 
         // Players loaded after DOM has completed must chain load.
         handler.on('cmg/ready', function (player) {

@@ -1,5 +1,4 @@
-var $ = require('jquery'),
-    handler = require('../util/event-handler.js'),
+var handler = require('../util/event-handler.js'),
     pubsub = window.pubsub,
     anvp = window.anvp = window.anvp || {};
 

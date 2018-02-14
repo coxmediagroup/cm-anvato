@@ -17,8 +17,8 @@ module.exports = function loadPlayer(id, player) {
 
     anvp[id] = {
         config: {
-            accessKey: player.data('access-key'),
-            video: player.data('videoid'),
+            accessKey: player.getAttribute('data-access-key'),
+            video: player.getAttribute('data-videoid'),
             autoplay: settings.autoplay
         },
         onReady: function (player) {
@@ -57,11 +57,11 @@ module.exports = function loadPlayer(id, player) {
                         clientSide: buildAdConfig(
                             scrubMetadata(video),
                             id,
-                            player.data('cmsid'),
-                            player.data('dfp-timeout'),
+                            player.getAttribute('data-cmsid'),
+                            parseInt(player.getAttribute('data-dfp-timeout')),
                             // Only the first video played uses the VPX's topics and categories.
-                            playCount === 1 ? player.data('topics') : [],
-                            playCount === 1 ? player.data('categories') : []
+                            playCount === 1 ? player.getAttribute('data-topics') : [],
+                            playCount === 1 ? player.getAttribute('data-categories') : []
                         )
                     }
                 }
