@@ -6,8 +6,8 @@ var options = require('./environment-options.js');
  */
 module.exports = function (player) {
     var topics = player.getAttribute('data-topics') || '',
-        autoplay = player.getAttribute('data-autoplay') === 'true' || false,
-        muted = player.getAttribute('data-muted') === 'true' || false;
+        autoplay = player.getAttribute('data-autoplay') === 'true',
+        muted = player.getAttribute('data-muted') === 'true',
     topics = topics.split(',');
 
     /**
