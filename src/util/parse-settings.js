@@ -1,13 +1,13 @@
 var options = require('./environment-options.js');
 
 /**
- * @param {jQuery} player The video player.
+ * @param {HTMLElement} player The video player.
  * @return {Object<boolean, boolean>} Autoplay and mute settings for this player.
  */
 module.exports = function (player) {
     var topics = player.getAttribute('data-topics') || '',
         autoplay = player.getAttribute('data-autoplay') === 'true',
-        muted = player.getAttribute('data-muted') === 'true',
+        muted = player.getAttribute('data-muted') === 'true';
     topics = topics.split(',');
 
     /**
