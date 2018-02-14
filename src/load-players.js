@@ -12,10 +12,10 @@ var setupPlayer = require('./setup-player.js'),
  * @see ../load-players.js
  */
 module.exports = function () {
-    var players = document.getElementsByClassName('anvato-player');//$('.anvato-player');
+    var players = document.getElementsByClassName('anvato-player');
     if (players.length) {
         var id = players[0].id = 'p' + ids.next();
-        setupPlayer(id, players[0]);//.eq(0));
+        setupPlayer(id, players[0]);
 
         // Players loaded after DOM has completed must chain load.
         handler.on('cmg/ready', function (player) {
