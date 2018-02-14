@@ -41,6 +41,9 @@
             data-muted="${cacheScope.muted or false}"
             data-topics="${topics}"
             data-categories="${categories}"
+            data-cmsid="${portalContext.env.vast_cmsid}"
+            data-access-key="${portalContext.env.anvatoAccessKeyV3}"
+            data-dfp-timeout="${empty portalContext.env.anvatoDFPTimeout ? 20 : portalContext.env.anvatoDFPTimeout}"
         ></div>
     </c:otherwise>
 </c:choose>
