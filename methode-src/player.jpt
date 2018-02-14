@@ -14,33 +14,33 @@
 
 <%-- Expose Anvato system data to the JS that all players will need. --%>
 <jsmin:script>
-	window.cmg = window.cmg || {};
-	cmg.anvatoConf = {
-		cmsid: ${portalContext.env.vast_cmsid},
-		accessKey: '${portalContext.env.anvatoAccessKeyV3}',
-		dfpTimeout: ${empty portalContext.env.anvatoDFPTimeout ? 20 : portalContext.env.anvatoDFPTimeout}
-	};
+    window.cmg = window.cmg || {};
+    cmg.anvatoConf = {
+        cmsid: ${portalContext.env.vast_cmsid},
+        accessKey: '${portalContext.env.anvatoAccessKeyV3}',
+        dfpTimeout: ${empty portalContext.env.anvatoDFPTimeout ? 20 : portalContext.env.anvatoDFPTimeout}
+    };
 </jsmin:script>
 
 <%-- Drop in the player or report errors to NewRelic. --%>
 <c:choose>
-	<c:when test="${empty videoId or videoId eq '0'}">
-		<!-- ERR <player.jpt> Anvato ID was not found! -->
-		<jsmin:pscript>
-			if (window.newrelic) {
-				newrelic.addPageAction('cmg_video_missingAnvatoID');
-			}
-		</jsmin:pscript>
-	</c:when>
-	<c:otherwise>
+    <c:when test="${empty videoId or videoId eq '0'}">
+        <!-- ERR <player.jpt> Anvato ID was not found! -->
+        <jsmin:pscript>
+            if (window.newrelic) {
+                newrelic.addPageAction('cmg_video_missingAnvatoID');
+            }
+        </jsmin:pscript>
+    </c:when>
+    <c:otherwise>
         <cmg:topicsAndCategories object="${currentObject}" topics="topics" categories="categories" />
-		<div
-			class="anvato-player"
-			data-videoid="${videoId}"
-			data-autoplay="${cacheScope.autoplay or false}"
-			data-muted="${cacheScope.muted or false}"
-			data-topics="${topics}"
-			data-categories="${categories}"
-		></div>
-	</c:otherwise>
+        <div
+            class="anvato-player"
+            data-videoid="${videoId}"
+            data-autoplay="${cacheScope.autoplay or false}"
+            data-muted="${cacheScope.muted or false}"
+            data-topics="${topics}"
+            data-categories="${categories}"
+        ></div>
+    </c:otherwise>
 </c:choose>
