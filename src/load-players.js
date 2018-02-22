@@ -1,33 +1,31 @@
-var setupPlayer = require('./setup-player.js'),
-    handler = require('./util/event-handler.js'),
+var loadPlayer = require('./load-player.js'),
     options = require('./util/environment-options.js'),
     bundle = options.stage ? 'stage' : 'prod',
     ids = require('./util/id-factory.js');
 
-/**
- * Load additional players separate from the normal in page players. This
- * is an option for players loaded through events such as ajax or clicks.
- * Players much chain load through their onReady events to avoid collision
- * in the global state of Anvato's code.
- * @see ../load-players.js
- */
+// Ensure `anvload.js` has been loaded before loading any players.
 module.exports = function () {
-    var players = document.getElementsByClassName('anvato-player');
-    if (players.length) {
-        var id = players[0].id = 'p' + ids.next();
-        setupPlayer(id, players[0]);
-
-        // Players loaded after DOM has completed must chain load.
-        handler.on('cmg/ready', function (player) {
-            // Recurse after this player is done loading.
-            if (player === window.anvp[id]) {
-                module.exports();
-            }
-        });
-
+    if (global.AnvatoPlayer) {
+        // `anvload.js` is already loaded, so start loading players.
+        loadPlayers();
+    } else {
+        // Append `anvload.js` and then load players once it's ready.
         var script = document.createElement('script');
         script.src = 'https://w3.cdn.anvato.net/player/' + bundle + '/v3/scripts/anvload.js';
-        script.setAttribute('data-anvp', '{"pInstance":"' + id + '"}');
+        script.onload = loadPlayers;
         document.body.appendChild(script);
     }
 };
+
+// Loop through all the `anvato-player` divs and load video players.
+function loadPlayers() {
+    var players = document.getElementsByClassName('anvato-player'),
+        count = players.length,
+        i, player, id;
+
+    for (i = 0; i < count; i += 1) {
+        player = players[0];
+        id = player.id = 'p' + ids.next();
+        loadPlayer(id, player);
+    }
+}

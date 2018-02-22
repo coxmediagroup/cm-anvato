@@ -128,3 +128,48 @@ Override `loadVideoTimeout` player setting.
    * **minor** If you added a new public method or enhanced an existing method in a non-breaking way.
    * **patch** Internal (non-public) changes - bug fixes, performance improvements, etc.
 1. Push to origin with tags. Ex) `$ git push origin my-branch --tags`
+
+## Build Tools
+
+Start by creating a file named `auth.json` in the root of this directory. This file
+is not committed and has already been added to `.gitignore`. These credentials are used
+when interacting with WebDAV.
+```json
+{
+  "username": "dcobb",
+  "password": "abc123"
+}
+```
+You must be on the VPN to push to WebDAV.
+
+### Creating a new version
+Bump version ids in `package.json` as well as ***any source files***.
+Remember to commit the changes afterward.
+```
+$ grunt version:major
+$ grunt version:minor
+$ grunt version:patch
+```
+### Pushing to Methode
+Upload your src files to a remote environment. Will fail if your version already
+exists remotely. In this case see the `grunt version` task.
+```
+$ grunt push:dev
+$ grunt push:qa
+$ grunt push:staging
+$ grunt push:prod
+```
+### Update an existing version
+**Danger Zone** Overwrite an existing version in a remote environment. This is
+irreversable so be sure this is what you mean to do.
+```
+$ grunt push:dev --f
+$ grunt push:dev --force
+```
+### Publishing a version
+Publish the current version in a remote environment. This method of publishing is disabled in production.
+```
+$ grunt publish:dev
+$ grunt publish:qa
+$ grunt publish:staging
+```
