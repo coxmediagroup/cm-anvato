@@ -142,14 +142,6 @@ when interacting with WebDAV.
 ```
 You must be on the VPN to push to WebDAV.
 
-### Creating a new version
-Bump version ids in `package.json` as well as ***any source files***.
-Remember to commit the changes afterward.
-```
-$ grunt version:major
-$ grunt version:minor
-$ grunt version:patch
-```
 ### Pushing to Methode
 Upload your src files to a remote environment. Will fail if your version already
 exists remotely. In this case see the `grunt version` task.
