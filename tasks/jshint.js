@@ -17,7 +17,8 @@ module.exports = function (grunt) {
                     'gruntfile.js',
                     'tests/**/*.spec.js',
                     'tasks/**/*.js',
-                    '!src/**/anvato-strategy.js'
+                    '!src/**/chartbeat-strategy.js',
+                    '!src/**/*.min.js'
                 ]
             }
         }

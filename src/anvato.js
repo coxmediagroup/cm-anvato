@@ -13,13 +13,15 @@ module.exports = {
      */
     setup: function () {
         try {
-            // Setup NewRelic error reporting.
-            require('./extensions/new-relic.js');
-
-            // Setup and install AnvatoStrategy (Chartbeat metrics).
-            require('./extensions/anvato-strategy.js');
+            // Setup and install AnvatoStrategy for Chartbeat metrics.
+            require('./extensions/chartbeat-strategy.js');
             window._cbv_strategies = window._cbv_strategies || [];
             window._cbv_strategies.push(window.AnvatoStrategy);
+
+            // Load the NewRelic video tracker.
+            if (window.newrelic) {
+                require('./extensions/newrelic-video-anvato.min.js');
+            }
 
             // Apply common config for all players.
             require('./set-common-config.js');
@@ -42,7 +44,7 @@ module.exports = {
     loadPlayers: loadPlayers,
     /**
      * ## anvato.setupMetrics()
-     * Set up metrics for pages that set up videos manually.
+     * Set up metrics for pages that load videos manually.
      */
     setupMetrics: setupMetrics,
     /**
