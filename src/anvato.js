@@ -1,10 +1,6 @@
-/**
- * # Anvato Video Player
- */
-
 var handler = require('./util/event-handler.js'),
     loadPlayers = require('./load-players.js'),
-    setupMetrics = require('./extensions/metrics.js');
+    setupMetrics = require('./extensions/dtm.js');
 
 module.exports = {
     /**
@@ -12,28 +8,24 @@ module.exports = {
      * Setup all video players in the page.
      */
     setup: function () {
-        try {
-            // Setup and install AnvatoStrategy for Chartbeat metrics.
-            require('./extensions/chartbeat-strategy.js');
-            window._cbv_strategies = window._cbv_strategies || [];
-            window._cbv_strategies.push(window.AnvatoStrategy);
+        // Setup and install AnvatoStrategy for Chartbeat metrics.
+        require('./extensions/chartbeat.js');
+        window._cbv_strategies = window._cbv_strategies || [];
+        window._cbv_strategies.push(window.AnvatoStrategy);
 
-            // Load the NewRelic video tracker.
-            if (window.newrelic) {
-                require('./extensions/newrelic-video-anvato.min.js');
-            }
-
-            // Apply common config for all players.
-            require('./set-common-config.js');
-
-            // Setup video metrics.
-            setupMetrics();
-
-            // Load config and scripts for all the players.
-            loadPlayers();
-        } catch (err) {
-            handler.trigger('cmg/error', err);
+        // Load the NewRelic video tracker.
+        if (window.newrelic) {
+            require('./extensions/newrelic.min.js');
         }
+
+        // Apply common config for all players.
+        require('./set-common-config.js');
+
+        // Setup video metrics.
+        setupMetrics();
+
+        // Load config and scripts for all the players.
+        loadPlayers();
     },
     /**
      * ## anvato.loadPlayers()
