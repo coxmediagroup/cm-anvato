@@ -1,6 +1,8 @@
 var handler = require('../util/event-handler.js'),
-    pubsub = window.pubsub,
-    anvp = window.anvp = window.anvp || {};
+    anvp = window.anvp = window.anvp || {},
+    videoDataRequests = [],
+    payloadProcessing = false,
+    queuedPayloads = [];
 
 /**
  * Bind metrics to player events.
@@ -10,10 +12,6 @@ module.exports = function () {
         console.warn('[cmAnvato] Cannot find PubSub! Video metrics are OFFLINE.');
         return;
     }
-
-    window.videoDataRequests = [];
-    window.payloadProcessing = false;
-    window.queuedPayloads = [];
 
     anvp.listener = function (e) {
         var player = anvp[e.sender];
@@ -52,24 +50,24 @@ module.exports = function () {
                 break;
         }
     };
-
-    pubsub.subscribe('payload_processing_complete', function () {
-        if (window.queuedPayloads.length) {
-            constructAnvatoPayload(
-                window.queuedPayloads[0].e,
-                window.queuedPayloads[0].metricEvent,
-                window.queuedPayloads[0].ts
-            );
-            window.queuedPayloads.shift();
-        }
-    });
 };
 
+function payload_processing_complete() {
+    if (queuedPayloads.length) {
+        constructAnvatoPayload(
+            queuedPayloads[0].e,
+            queuedPayloads[0].metricEvent,
+            queuedPayloads[0].ts
+        );
+        queuedPayloads.shift();
+    }
+}
+
 function queuePayload(e, metricEvent, ts) {
-    if (!window.payloadProcessing) {
+    if (!payloadProcessing) {
         constructAnvatoPayload(e, metricEvent, ts);
     } else {
-        window.queuedPayloads.push({
+        queuedPayloads.push({
             e: e,
             metricEvent: metricEvent,
             ts: ts
@@ -78,52 +76,52 @@ function queuePayload(e, metricEvent, ts) {
 }
 
 function constructAnvatoPayload(e, metricEvent, ts) {
-    window.payloadProcessing = true;
-    window.videoDataRequests[ts] = {};
-    window.videoDataRequests[ts].sender = e.sender;
-    window.videoDataRequests[ts].async = ['title', 'time', 'duration'];
-    window.videoDataRequests[ts].payload = {};
-    window.videoDataRequests[ts].event = metricEvent;
-    window.videoDataRequests[ts].event_fired = false;
-    window.videoDataRequests[ts].titleFunc = function (result) {
-        window.videoDataRequests[ts].payload.videoName = result;
-        pop('title', window.videoDataRequests[ts].async);
-        if (window.videoDataRequests[ts].async.length === 0 && !window.videoDataRequests[ts].event_fired) {
+    payloadProcessing = true;
+    videoDataRequests[ts] = {};
+    videoDataRequests[ts].sender = e.sender;
+    videoDataRequests[ts].async = ['title', 'time', 'duration'];
+    videoDataRequests[ts].payload = {};
+    videoDataRequests[ts].event = metricEvent;
+    videoDataRequests[ts].event_fired = false;
+    videoDataRequests[ts].titleFunc = function (result) {
+        videoDataRequests[ts].payload.videoName = result;
+        pop('title', videoDataRequests[ts].async);
+        if (videoDataRequests[ts].async.length === 0 && !videoDataRequests[ts].event_fired) {
             anvatoPayloadComplete(ts);
         }
     };
-    window.videoDataRequests[ts].timeFunc = function (result) {
-        window.videoDataRequests[ts].payload.videoSecondsViewed = result;
-        pop('time', window.videoDataRequests[ts].async);
-        if (window.videoDataRequests[ts].async.length === 0 && !window.videoDataRequests[ts].event_fired) {
+    videoDataRequests[ts].timeFunc = function (result) {
+        videoDataRequests[ts].payload.videoSecondsViewed = result;
+        pop('time', videoDataRequests[ts].async);
+        if (videoDataRequests[ts].async.length === 0 && !videoDataRequests[ts].event_fired) {
             anvatoPayloadComplete(ts);
         }
     };
-    window.videoDataRequests[ts].durationFunc = function (result) {
-        window.videoDataRequests[ts].payload.videoTotalTime = result;
-        pop('duration', window.videoDataRequests[ts].async);
-        if (window.videoDataRequests[ts].async.length === 0 && !window.videoDataRequests[ts].event_fired) {
+    videoDataRequests[ts].durationFunc = function (result) {
+        videoDataRequests[ts].payload.videoTotalTime = result;
+        pop('duration', videoDataRequests[ts].async);
+        if (videoDataRequests[ts].async.length === 0 && !videoDataRequests[ts].event_fired) {
             anvatoPayloadComplete(ts);
         }
     };
-    anvp[e.sender].getTitle(window.videoDataRequests[ts].titleFunc);
-    anvp[e.sender].getCurrentTime(window.videoDataRequests[ts].timeFunc);
-    anvp[e.sender].getDuration(window.videoDataRequests[ts].durationFunc);
+    anvp[e.sender].getTitle(videoDataRequests[ts].titleFunc);
+    anvp[e.sender].getCurrentTime(videoDataRequests[ts].timeFunc);
+    anvp[e.sender].getDuration(videoDataRequests[ts].durationFunc);
 }
 
 function anvatoPayloadComplete(ts) {
-    var sender = window.videoDataRequests[ts].sender;
-    window.videoDataRequests[ts].event_fired = true;
-    window.videoDataRequests[ts].payload.videoId = anvp[sender].mergedConfig.video;
-    window.videoDataRequests[ts].payload.videoTopics = anvp[anvp[sender].mergedConfig.video + '-topics'];
-    window.videoDataRequests[ts].payload.videoPlayer = 'Anvato Universal Player-' + anvp[sender].mergedConfig.pInstance;
-    window.videoDataRequests[ts].payload.videoSiteAccountID = anvp[sender].mergedConfig.accessKey;
-    window.videoDataRequests[ts].payload.videoPlayType = anvp[sender].mergedConfig.autoplay ? 'auto-play' : 'manual play';
-    window.videoDataRequests[ts].payload.videoSource = 'Anvato';
-    window.videoDataRequests[ts].payload.videoContentType = anvp[sender].mergedConfig.live ? 'live' : 'vod';
-    pubsub.publish(window.videoDataRequests[ts].event, window.videoDataRequests[ts].payload);
-    window.payloadProcessing = false;
-    pubsub.publish('payload_processing_complete');
+    var sender = videoDataRequests[ts].sender;
+    videoDataRequests[ts].event_fired = true;
+    videoDataRequests[ts].payload.videoId = anvp[sender].mergedConfig.video;
+    videoDataRequests[ts].payload.videoTopics = anvp[anvp[sender].mergedConfig.video + '-topics'];
+    videoDataRequests[ts].payload.videoPlayer = 'Anvato Universal Player-' + anvp[sender].mergedConfig.pInstance;
+    videoDataRequests[ts].payload.videoSiteAccountID = anvp[sender].mergedConfig.accessKey;
+    videoDataRequests[ts].payload.videoPlayType = anvp[sender].mergedConfig.autoplay ? 'auto-play' : 'manual play';
+    videoDataRequests[ts].payload.videoSource = 'Anvato';
+    videoDataRequests[ts].payload.videoContentType = anvp[sender].mergedConfig.live ? 'live' : 'vod';
+    window.pubsub.publish(videoDataRequests[ts].event, videoDataRequests[ts].payload);
+    payloadProcessing = false;
+    payload_processing_complete();
 }
 
 function pop(element, array) {
