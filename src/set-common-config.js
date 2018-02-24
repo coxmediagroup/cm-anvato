@@ -9,6 +9,7 @@ anvp.common = anvp.common || {};
  * that have already been applied to the global anvp object.
  */
 anvp.common.config = mergeLeft({
+    trackTimePeriod: true,
     token: ' ',
     width: '100%',
     height: '56.25%',

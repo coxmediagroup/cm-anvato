@@ -5,21 +5,21 @@
 var params, result = {}, options = {};
 var query = window.location.search;
 
-// Remove leading '?' and split into parameters.
-query = query.slice(1);
-params = query.split('&');
+if (query.indexOf('anvato') >= 0) {
+    // Remove leading '?' and split into parameters.
+    query = query.slice(1);
+    params = query.split('&');
 
-// Construct the dictionary.
-params.forEach(function (param) {
-    var pair = param.split('='),
-        key = pair[0],
-        value = pair[1];
-    // Decode value or set to true if no value.
-    result[key] = value ? window.decodeURIComponent(value) : true;
-});
+    // Construct the dictionary.
+    params.forEach(function (param) {
+        var pair = param.split('='),
+            key = pair[0],
+            value = pair[1];
+        // Decode value or set to true if no value.
+        result[key] = value ? window.decodeURIComponent(value) : true;
+    });
 
-// Parse out any Anvato settings.
-if ('anvato' in result) {
+    // Parse out any Anvato settings.
     result.anvato.split('|').forEach(function (setting) {
         setting = setting.split('-');
         options[setting[0]] = setting[1] || true;

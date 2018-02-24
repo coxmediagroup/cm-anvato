@@ -5,7 +5,7 @@ var loadPlayer = require('./load-player.js'),
 
 // Ensure `anvload.js` has been loaded before loading any players.
 module.exports = function () {
-    if (global.AnvatoPlayer) {
+    if (window.AnvatoPlayer) {
         // `anvload.js` is already loaded, so start loading players.
         loadPlayers();
     } else {
