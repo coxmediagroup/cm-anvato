@@ -74,7 +74,7 @@ function queuePayload(event, metricEvent, ts) {
 
 function constructAnvatoPayload(event, metricEvent, ts) {
     payloadProcessing = true;
-    videoDataRequests[ts] = {};
+    videoDataRequests[ts] = {}; // This is really unacceptable.. the metrics payload is being keyed off of a fucking timestamp!?
     videoDataRequests[ts].sender = event.sender;
 
     // semaphore that avoids race condition with anvato async callbacks.. but this is nasty
@@ -130,7 +130,16 @@ function anvatoPayloadComplete(ts) {
     payload_processing_complete();
 }
 
- // what does this do? something to do with the semaphore
+/**
+ * How the "semaphore" works..
+ * Theres an array of variables that require async functions to access through the
+ * anvato api - these are getTitle, getCurrentTime, getTitle
+ * As those async functions return:
+ * - pop their names out of the array names "async"
+ * - check if the "async" array is empty, if so:
+ *      - check if the current payload object has been submitted, if not:
+ *          - anvatoPayloadComplete()
+ */
 function pop(element, array) {
     var index = array.indexOf(element);
     if (index > -1) {
