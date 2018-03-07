@@ -21,7 +21,7 @@ module.exports = function (player, id, container) {
                     clientSide: buildAdConfig(
                         scrubMetadata(video),
                         id,
-                        container.getAttribute('data-cmsid'),
+                        container.getAttribute('data-cmsid') || window.cmg.anvatoConf.cmsid,
                         initConfig.plugins.dfp.clientSide.adTagUrl,
                         window.parseInt(container.getAttribute('data-dfp-timeout')),
                         // Only the first video played uses the VPX's topics and categories.
