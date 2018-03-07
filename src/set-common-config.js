@@ -20,6 +20,11 @@ anvp.common.config = mergeLeft({
     plugins: {
         comscore: {
             clientId: 6035944
+        },
+        dfp: {
+            clientSide: {
+                adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]'
+            }
         }
     },
     profile: 'cox'
