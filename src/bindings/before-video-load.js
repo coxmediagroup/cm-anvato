@@ -8,7 +8,7 @@ module.exports = function (player, id, container) {
 
     player.on('beforeVideoLoad', function (video, initConfig) {
         // Check if this video should show pre-roll.
-        if (options.noads) {
+        if (options.noads || initConfig.plugins.dfp.clientSide.adTagUrl === 'MCP_ENFORCED_DISABLE') {
             // Disable ads for this video.
             return false;
         }
@@ -22,6 +22,7 @@ module.exports = function (player, id, container) {
                         scrubMetadata(video),
                         id,
                         container.getAttribute('data-cmsid'),
+                        initConfig.plugins.dfp.clientSide.adTagUrl,
                         window.parseInt(container.getAttribute('data-dfp-timeout')),
                         // Only the first video played uses the VPX's topics and categories.
                         playCount === 1 ? container.getAttribute('data-topics') : [],

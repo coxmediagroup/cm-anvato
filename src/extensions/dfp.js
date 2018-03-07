@@ -13,7 +13,7 @@ var cmg = require('./cmg.js'),
  * @param {string|array<string>} vpxCategories Categories of the vpx object.
  * @return {object} New DFP plugin config.
  */
-module.exports = function (video, id, cmsid, dfpTimeout, vpxTopics, vpxCategories) {
+module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCategories) {
     var config;
 
     if (!cmg.adconf.adunit) {
@@ -42,7 +42,7 @@ module.exports = function (video, id, cmsid, dfpTimeout, vpxTopics, vpxCategorie
         startTimeout: 'startTimeout' in options ? parseInt(options.startTimeout) : startTimeout,
         vastLoadTimeout: 'vastLoadTimeout' in options ? parseInt(options.vastLoadTimeout) : 10,
         loadVideoTimeout: 'loadVideoTimeout' in options ? parseInt(options.loadVideoTimeout) : 10,
-        adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]',
+        adTagUrl: adtag,
         keyValues: {
             category: categories,
             video: video.upload_id,
