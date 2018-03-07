@@ -8,7 +8,7 @@ This module is also exposed as a global variable in `dist/cmanvato.min.js`.
 
 This JavaScript module is intended for use with this Methode tag:
 
-    /PortalConfig/common/components/video/<version>/player.jpt
+    /PortalConfig/common/video/<version>/player.jpt
 
 This module includes support for metrics and ads.
 
@@ -42,7 +42,7 @@ CMS id for a given site. This value is provided by the Ad Operations team.
 In this example `portalContext.env.anvatoPlayer` is an environment property that contains the full path to `player.jpt`. Using an environment property will allow your entire site to point at a single version of the player and will allow you to update an entire site to a new version should the need arise.
 Here is an example entry from a site's `environments.properties` file:
 ```
-anvatoPlayer = /PortalConfig/common/components/video/2.8.2/player.jpt
+anvatoPlayer = /PortalConfig/common/video/2.9.0/player.jpt
 ```
 
 ## JavaScript API
