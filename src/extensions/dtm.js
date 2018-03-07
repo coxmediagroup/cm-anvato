@@ -8,8 +8,8 @@ var handler = require('../util/event-handler.js'),
  * Connect player events to DTM.
  */
 module.exports = function () {
-    if (!window.pubsub) {
-        console.warn('[cmAnvato] Cannot find PubSub! Video metrics are OFFLINE.');
+    if (!window.DDO || !window.DDO.action) {
+        console.warn('[cmAnvato] Cannot find DDO object! Video metrics are OFFLINE.');
     }
 
     window.anvp = window.anvp || {};
@@ -20,8 +20,7 @@ module.exports = function () {
          */
         handler.trigger(event.name, event);
 
-        // Metrics relies on pubsub... for now...
-        if (window.pubsub) {
+        if (window.DDO && window.DDO.action) {
             var video = event.args[1],
                 player = event.sender;
 
@@ -35,15 +34,15 @@ module.exports = function () {
                  */
                 if (!playCache[player]) {
                     playCache[player] = true;
-                    fire('video-start', player, video);
+                    fire('videoStart', player, video);
                 }
             } else if (event.name === 'VIDEO_STARTED') {
-                fire('video-content-play', player, video);
+                fire('videoContentPlay', player, video);
             } else if (event.name === 'USER_PAUSE') {
-                fire('video-pause', player, video);
+                fire('videoPause', player, video);
             } else if (event.name === 'VIDEO_COMPLETED') {
                 playCache[player] = false;
-                fire('video-complete', player, video);
+                fire('videoComplete', player, video);
             }
         }
     };
@@ -67,7 +66,7 @@ function fire(name, id, video) {
         remaining -= 1;
         if (!remaining) {
             // Publish the actual metrics event.
-            window.pubsub.publish(name, data);
+            window.DDO.action(name, data);
         }
     }
 
