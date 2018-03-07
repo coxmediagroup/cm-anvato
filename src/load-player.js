@@ -20,7 +20,7 @@ module.exports = function (id, container) {
 
     // Load the video player.
     player.init({
-        accessKey: container.getAttribute('data-access-key'),
+        accessKey: container.getAttribute('data-access-key') || window.cmg.anvatoConf.accessKey,
         video: container.getAttribute('data-videoid'),
         autoplay: settings.autoplay
     });
