@@ -13,7 +13,7 @@ var buildAdConfig = require('./extensions/build-ad-config.js'),
 module.exports = function (id, container) {
     var playCount = 0,
         settings = parseSettings(container),
-        player = global.AnvatoPlayer(id);
+        player = window.AnvatoPlayer(id);
 
     // Player instance is fully loaded with the ready event.
     player.on('ready', function () {
@@ -61,4 +61,9 @@ module.exports = function (id, container) {
         video: container.getAttribute('data-videoid'),
         autoplay: settings.autoplay
     });
+
+    // Add player to NewRelic video tracker.
+    if (window.nrvideo) {
+        nrvideo.Core.addTracker(new nrvideo.AnvatoTracker(id));
+    }
 };
