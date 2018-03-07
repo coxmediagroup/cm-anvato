@@ -100,7 +100,7 @@ AnvatoStrategy.prototype.subscribeEvents = function() {
                 strategy._currentContentType = AnvatoStrategy.ContentType.AD;
                 break;
         }
-    };
+    }
 
 };
 
@@ -116,7 +116,7 @@ AnvatoStrategy.prototype._updateMetadata = function(evt) {
     this._title = metadata.title;
     this._duration = metadata.duration;
     this._thumbnailURL = metadata.thumbnail;
-}
+};
 
 
 /**
