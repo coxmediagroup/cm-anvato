@@ -13,11 +13,6 @@ module.exports = {
         window._cbv_strategies = window._cbv_strategies || [];
         window._cbv_strategies.push(window.AnvatoStrategy);
 
-        // Load the NewRelic video tracker.
-        if (window.newrelic) {
-            require('./extensions/newrelic.min.js');
-        }
-
         // Apply common config for all players.
         require('./set-common-config.js');
 

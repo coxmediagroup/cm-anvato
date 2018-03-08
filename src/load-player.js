@@ -1,6 +1,7 @@
 var parseSettings = require('./util/parse-settings.js'),
     bindOnReady = require('./bindings/ready.js'),
-    bindBeforeVideoLoad = require('./bindings/before-video-load.js');
+    bindBeforeVideoLoad = require('./bindings/before-video-load.js'),
+    nrvideo = require('./extensions/newrelic.min.js');
 
 /**
  * # Load Player
@@ -26,7 +27,9 @@ module.exports = function (id, container) {
     });
 
     // Add player to NewRelic video tracker.
-    if (window.nrvideo) {
+    if (window.newrelic) {
         nrvideo.Core.addTracker(new nrvideo.AnvatoTracker(id));
+    } else {
+        console.warn('[cmAnvato] Cannot find newrelic object! Video tracking is OFFLINE.');
     }
 };
