@@ -1,7 +1,8 @@
 var parseSettings = require('./util/parse-settings.js'),
     bindOnReady = require('./bindings/ready.js'),
     bindBeforeVideoLoad = require('./bindings/before-video-load.js'),
-    nrvideo = require('./extensions/newrelic.min.js');
+    nrvideo = require('./extensions/newrelic.min.js'),
+    bindChartbeat = require('./extensions/chartbeat/bind-meta.js');
 
 /**
  * # Load Player
@@ -32,4 +33,7 @@ module.exports = function (id, container) {
     } else {
         console.warn('[cmAnvato] Cannot find newrelic object! Video tracking is OFFLINE.');
     }
+
+    // Setup event bindings for Chartbeat's Strategy.
+    bindChartbeat(player);
 };
