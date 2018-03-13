@@ -24,24 +24,25 @@ module.exports = function () {
             var id = event.sender;
 
             if (event.name === 'METADATA_LOADED') {
+                playCache[id] = false;
                 meta[id] = meta[id] || {};
                 meta[id].videoid = event.args[1];
                 meta[id].tags = event.args[2].tags;
-            } else if (event.name === 'PLAYING_START') {
+            } else if (event.name === 'AD_STARTED') {
+                playCache[id] = true;
+                fire('videoStart', id);
+            } else if (event.name === 'VIDEO_STARTED') {
                 /**
                  * Ensure `video-start` only fires once per content. This event fires once
                  * with the pre-roll and again with the content.
                  */
                 if (!playCache[id]) {
-                    playCache[id] = true;
                     fire('videoStart', id);
                 }
-            } else if (event.name === 'VIDEO_STARTED') {
                 fire('videoContentPlay', id);
             } else if (event.name === 'USER_PAUSE') {
                 fire('videoPause', id);
             } else if (event.name === 'VIDEO_COMPLETED') {
-                playCache[id] = false;
                 fire('videoComplete', id);
             }
         }

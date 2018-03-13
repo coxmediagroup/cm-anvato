@@ -1,9 +1,12 @@
-var handler = require('../util/event-handler.js');
-
+/**
+ * Player instance is fully loaded with the ready event.
+ */
 module.exports = function (player, muted) {
-    // Player instance is fully loaded with the ready event.
     player.on('ready', function () {
-        // Add the player to Chartbeat (metrics).
+        /**
+         * Add the player to the Chartbeat Video tracker.
+         * @see http://support.chartbeat.com/docs/video.html#jssdk
+         */
         window._cbv = window._cbv || [];
         window._cbv.push(player);
 

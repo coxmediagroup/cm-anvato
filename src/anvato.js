@@ -1,6 +1,7 @@
 var handler = require('./util/event-handler.js'),
     loadPlayers = require('./load-players.js'),
-    setupMetrics = require('./extensions/dtm.js');
+    setupDTM = require('./extensions/dtm.js');
+    setupChartbeat = require('./extensions/chartbeat/setup.js');
 
 module.exports = {
     /**
@@ -8,16 +9,12 @@ module.exports = {
      * Setup all video players in the page.
      */
     setup: function () {
-        // Setup and install AnvatoStrategy for Chartbeat metrics.
-        require('./extensions/chartbeat.js');
-        window._cbv_strategies = window._cbv_strategies || [];
-        window._cbv_strategies.push(window.AnvatoStrategy);
-
         // Apply common config for all players.
         require('./set-common-config.js');
 
         // Setup video metrics.
-        setupMetrics();
+        setupChartbeat();
+        setupDTM();
 
         // Load config and scripts for all the players.
         loadPlayers();
@@ -33,7 +30,7 @@ module.exports = {
      * ## anvato.setupMetrics()
      * Set up metrics for pages that load videos manually.
      */
-    setupMetrics: setupMetrics,
+    setupMetrics: setupDTM,
     /**
      * ## anvato.set(name, value)
      * Apply new common config. This must be called before `anvato.setup()`.

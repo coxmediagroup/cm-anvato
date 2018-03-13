@@ -12,4 +12,8 @@ module.exports = function (grunt) {
         'browserify',
         'uglify'
     ]);
+    grunt.registerTask('build', [
+        'browserify',
+        'uglify'
+    ]);
 };
