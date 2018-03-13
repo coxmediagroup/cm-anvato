@@ -1,8 +1,8 @@
 var handler = require('../util/event-handler.js'),
     // Used to filter duplicate play events with pre-roll.
     playCache = {},
-    // Warehouse of tags by video id.
-    tags = {};
+    // Warehouse of metadata by player id.
+    meta = {};
 
 /**
  * Connect player events to DTM.
@@ -21,44 +21,44 @@ module.exports = function () {
         handler.trigger(event.name, event);
 
         if (window.DDO && window.DDO.action) {
-            var video = event.args[1],
-                player = event.sender;
+            var id = event.sender;
 
             if (event.name === 'METADATA_LOADED') {
-                tags[video] = tags[video] || {};
-                tags[video].tags = event.args[2].tags;
+                meta[id] = meta[id] || {};
+                meta[id].videoid = event.args[1];
+                meta[id].tags = event.args[2].tags;
             } else if (event.name === 'PLAYING_START') {
                 /**
                  * Ensure `video-start` only fires once per content. This event fires once
                  * with the pre-roll and again with the content.
                  */
-                if (!playCache[player]) {
-                    playCache[player] = true;
-                    fire('videoStart', player, video);
+                if (!playCache[id]) {
+                    playCache[id] = true;
+                    fire('videoStart', id);
                 }
             } else if (event.name === 'VIDEO_STARTED') {
-                fire('videoContentPlay', player, video);
+                fire('videoContentPlay', id);
             } else if (event.name === 'USER_PAUSE') {
-                fire('videoPause', player, video);
+                fire('videoPause', id);
             } else if (event.name === 'VIDEO_COMPLETED') {
-                playCache[player] = false;
-                fire('videoComplete', player, video);
+                playCache[id] = false;
+                fire('videoComplete', id);
             }
         }
     };
 };
 
-function fire(name, id, video) {
+function fire(name, id) {
     var remaining = 3,
         player = window.anvp[id],
         data = {
             videoContentType: player.mergedConfig.live ? 'live' : 'vod',
-            videoId: video,
+            videoId: meta[id].videoid,
             videoPlayer: 'Anvato Universal Player-' + id,
             videoPlayType: player.mergedConfig.autoplay ? 'auto-play' : 'manual play',
             videoSiteAccountID: player.mergedConfig.accessKey,
             videoSource: 'Anvato',
-            videoTopics: tags[video]
+            videoTopics: meta[id].tags
         };
 
     // Semaphore for Anvato SDK async methods.
