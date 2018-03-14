@@ -34,9 +34,7 @@ module.exports = function () {
                 playCache[id] = true;
                 fire('videoStart', id);
             } else if (event.name === 'VIDEO_STARTED') {
-                /**
-                 * Ensure `video-start` only fires once per content.
-                 */
+                // Ensure videoStart action only fires once per content.
                 if (!playCache[id]) {
                     fire(['videoStart', 'videoContentPlay'], id);
                 } else {
