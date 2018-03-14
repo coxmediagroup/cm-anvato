@@ -28,6 +28,8 @@ module.exports = function () {
                 meta[id] = meta[id] || {};
                 meta[id].videoid = event.args[1];
                 meta[id].tags = event.args[2].tags;
+                meta[id].title = event.args[2].title;
+                meta[id].duration = event.args[2].duration;
             } else if (event.name === 'AD_STARTED') {
                 playCache[id] = true;
                 fire('videoStart', id);
@@ -54,43 +56,27 @@ module.exports = function () {
  * instead of calling fire() multiple times in a row, pass in an array of event names.
  */
 function fire(names, id) {
-    var remaining = 3,
-        player = window.anvp[id],
-        data = {
-            videoContentType: player.mergedConfig.live ? 'live' : 'vod',
-            videoId: meta[id].videoid,
-            videoPlayer: 'Anvato Universal Player-' + id,
-            videoPlayType: player.mergedConfig.autoplay ? 'auto-play' : 'manual play',
-            videoSiteAccountID: player.mergedConfig.accessKey,
-            videoSource: 'Anvato',
-            videoTopics: meta[id].tags
-        };
+    var player = window.anvp[id];
 
     // Ensure names is an array.
     names = [].concat(names);
 
-    // Semaphore for Anvato SDK async methods.
-    function done() {
-        remaining -= 1;
-        if (!remaining) {
-            // Publish the actual metrics events.
-            names.forEach(function (name) {
-                window.DDO.action(name, data);
-            });
-        }
-    }
-
-    // Accommodate the small couple of async data points for this video.
-    player.getTitle(function (title) {
-        data.videoName = title;
-        done();
-    });
+    // Accommodate for the async player method.
     player.getCurrentTime(function (time) {
-        data.videoSecondsViewed = time;
-        done();
-    });
-    player.getDuration(function (duration) {
-        data.videoTotalTime = duration;
-        done();
+        // Publish the DDO actions.
+        names.forEach(function (name) {
+            window.DDO.action(name, {
+                videoContentType: player.mergedConfig.live ? 'live' : 'vod',
+                videoId: meta[id].videoid,
+                videoName: meta[id].title,
+                videoPlayer: 'Anvato Universal Player-' + id,
+                videoPlayType: player.mergedConfig.autoplay ? 'auto-play' : 'manual play',
+                videoSiteAccountID: player.mergedConfig.accessKey,
+                videoSecondsViewed: time,
+                videoSource: 'Anvato',
+                videoTopics: meta[id].tags,
+                videoTotalTime: meta[id].duration
+            });
+        });
     });
 }
