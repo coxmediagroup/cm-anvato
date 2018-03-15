@@ -41,18 +41,6 @@ module.exports = function (player) {
             }
             return 0;
         },
-        getViewPlayTime: function () {
-            if (meta.contentStartTime) {
-                return Math.floor(performance.now() - contentStartTime);
-            }
-            return 0;
-        },
-        getViewAdPlayTime: function () {
-            if (meta.startTime) {
-                return Math.floor(performance.now() - meta.startTime);
-            }
-            return 0;
-        },
         getStrategyName: function () {
             return 'AN';
         },

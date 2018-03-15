@@ -23,7 +23,6 @@ module.exports = function (player) {
         player.cmg.firstplay = player.cmg.firstplay === void(0);
         player.cmg.ready = true;
         player.cmg.startTime = false;
-        player.cmg.contentStartTime = false;
         player.cmg.state = id === player.cmg.video ? 's4' : 's1';
         player.cmg.video = id;
         player.cmg.title = meta.title;
@@ -36,7 +35,6 @@ module.exports = function (player) {
     });
     player.on('VIDEO_STARTED', function () {
         player.cmg.contentType = 'ct';
-        player.cmg.contentStartTime = performance.now();
     });
     player.on('VIDEO_COMPLETED', function () {
         player.cmg.state = 's4';
