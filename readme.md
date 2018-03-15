@@ -40,8 +40,8 @@ anvatoPlayer = /PortalConfig/common/video/2.10.1/player.jpt
 ### Single Video Player
 ```xml
 <p:include webObject="${vpxObject}" styleName="${portalContext.env.anvatoPlayer}">
-	<p:param name="autoplay" value="true" />
-	<p:param name="muted" value="true" />
+    <p:param name="autoplay" value="true" />
+    <p:param name="muted" value="true" />
 </p:include>
 ```
 The optional settings `autoplay` and `muted` default to `false`, but can be overwritten manually.
@@ -49,7 +49,7 @@ The optional settings `autoplay` and `muted` default to `false`, but can be over
 ### Playlist Player
 ```xml
 <p:include url="${portalContext.env.anvatoPlayer}">
-	<p:param name="playlist" value="${vpxList}" />
+    <p:param name="playlist" value="${vpxList}" />
     <p:param name="limit" value="10" />
 </p:include>
 ```
