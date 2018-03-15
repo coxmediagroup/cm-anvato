@@ -9,8 +9,22 @@
   -
   --%>
 
-<p:currentObject metadata="meta" />
-<p:out var="videoId" xvalue="$meta//Anvato/id" />
+<p:currentObject metadata="meta" webType="wt" />
+
+<%-- Build video id set based on object provided - either a playlist or a single vpx. --%>
+<c:choose>
+	<c:when test="${wt eq 'VideoProxy'}">
+		<p:out var="videoId" xvalue="$meta//Anvato/id" />
+	</c:when>
+	<c:otherwise>
+		<%-- This is a playlist, so generate the csv of all video ids. --%>
+		<c:forEach items="${cacheScope.playlist}" var="vpx" end="${empty cacheScope.limit ? 10 : cacheScope.limit}" varStatus="loop">
+			<p:object webObject="${vpx}" metadata="meta" />
+			<p:out var="id" xvalue="$meta//Anvato/id" />
+			<c:set var="videoId" value="${videoId}${id}${not loop.last ? ',' : ''}" />
+		</c:forEach>
+	</c:otherwise>
+</c:choose>
 
 <%-- Drop in the player or report errors to NewRelic. --%>
 <c:choose>

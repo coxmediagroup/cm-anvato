@@ -32,18 +32,28 @@ CMS id for a given site. This value is provided by the Ad Operations team.
 <!-- Default are autoplay off and not muted. -->
 <p:include webObject="${vpxObject}" styleName="${portalContext.env.anvatoPlayer}" />
 ```
+In this example `portalContext.env.anvatoPlayer` is an environment property that contains the full path to `player.jpt`. Using an environment property will allow your entire site to point at a single version of the player and will allow you to update an entire site to a new version should the need arise.
+Here is an example entry from a site's `environments.properties` file:
+```
+anvatoPlayer = /PortalConfig/common/video/2.10.1/player.jpt
+```
+### Single Video Player
 ```xml
-<!-- Autoplay and mute settings can be set manually. -->
 <p:include webObject="${vpxObject}" styleName="${portalContext.env.anvatoPlayer}">
 	<p:param name="autoplay" value="true" />
 	<p:param name="muted" value="true" />
 </p:include>
 ```
-In this example `portalContext.env.anvatoPlayer` is an environment property that contains the full path to `player.jpt`. Using an environment property will allow your entire site to point at a single version of the player and will allow you to update an entire site to a new version should the need arise.
-Here is an example entry from a site's `environments.properties` file:
+The optional settings `autoplay` and `muted` default to `false`, but can be overwritten manually.
+
+### Playlist Player
+```xml
+<p:include url="${portalContext.env.anvatoPlayer}">
+	<p:param name="playlist" value="${vpxList}" />
+    <p:param name="limit" value="10" />
+</p:include>
 ```
-anvatoPlayer = /PortalConfig/common/video/2.9.0/player.jpt
-```
+The `playlist` setting is a `<p:list>` of vpx objects. Unfortunately Methode does not allow lists to be used as `currentObject` and so must be passed in using the `<p:param>` tag. The optional `limit` setting defaults to `10` is the maximum number of videos to include from your list - starting at index 0. The `autoplay` and `muted` settings default to `false` and work as expected for playlists.
 
 ## JavaScript API
 
