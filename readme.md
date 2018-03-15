@@ -1,4 +1,4 @@
-# New Document# cm-anvato
+# cm-anvato
 
 Single-point install for the Anvato video player.
 
