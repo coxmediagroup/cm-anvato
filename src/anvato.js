@@ -8,7 +8,7 @@ module.exports = {
      * Safely fetch a player regardless of Anvato's load state.
      * If a player is not created yet, the request will be cached.
      */
-    player: function (id) {
+    get: function (id) {
         return {
             // Emulate a Promise.
             then: function (resolve) {

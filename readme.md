@@ -79,10 +79,10 @@ Pauses all players in the page.
 ```js
 anvato.pauseAll();
 ```
-### anvato.player(id)
+### anvato.get(id)
 Safely fetch a player regardless of Anvato load state. Requests for players that don't exist yet are cached until that the player exists. Returns a Promise that provides the player instance. See [Anvato's documentation](https://dev.anvato.net/api/player#reference-guide) for more information on the player SDK.
 ```js
-anvato.player('p0').then(function (player) {
+anvato.get('p0').then(function (player) {
     player.on('METADATA_LOADED', function () {});
 });
 ```
