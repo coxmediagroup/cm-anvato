@@ -64,6 +64,10 @@ var anvato = require('cm-anvato');
 anvato.get('p0').then(function (player) {
     player.on('METADATA_LOADED', function () {});
 });
+// Calling without a player id will return all players.
+anvato.get().then(function (players) {
+    players.forEach(function (player) {});
+});
 ```
 ### anvato.set(name, value)
 Update the `anvp.common.config` object.
@@ -75,9 +79,15 @@ Begin loading of all players in the page.
 ```js
 anvato.setup();
 ```
+### anvato.on(name, callback)
+Hook into the global event handler for all Anvato players in the page. See [Anvato's documentation](https://dev.anvato.net/api/player#api-events) for more information about player events.
+```js
+anvato.on('METADATA_LOADED', function (event) {
+    var playerId = event.sender;
+});
+```
 ### anvato.loadPlayers()
-Load additional players separate from the normal in page players. This
-is an option for players loaded through events such as ajax or clicks.
+Load additional players separate from the normal in page players. This is an option for players loaded through events such as ajax or clicks.
 ```js
 anvato.loadPlayers();
 ```
