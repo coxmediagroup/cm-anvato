@@ -60,6 +60,7 @@ The `playlist` setting is a `<p:list>` of vpx objects. Unfortunately Methode doe
 ### anvato.get(id)
 Safely fetch a player regardless of Anvato load state. Requests for players that don't exist yet are cached until the player exists. Returns a Promise that provides the player instance. See [Anvato's documentation](https://dev.anvato.net/api/player#reference-guide) for more information on the player SDK.
 ```js
+var anvato = require('cm-anvato');
 anvato.get('p0').then(function (player) {
     player.on('METADATA_LOADED', function () {});
 });
@@ -67,7 +68,6 @@ anvato.get('p0').then(function (player) {
 ### anvato.set(name, value)
 Update the `anvp.common.config` object.
 ```js
-var anvato = require('cm-anvato');
 anvato.set('recom', false);
 ```
 ### anvato.setup()
