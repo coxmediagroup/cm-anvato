@@ -1,8 +1,5 @@
-var handler = require('../util/event-handler.js'),
-    // Used to filter duplicate play events with pre-roll.
-    playCache = {},
-    // Warehouse of metadata by player id.
-    meta = {};
+var playCache = {}, // Used to filter duplicate play events with pre-roll.
+    meta = {}; // Warehouse of metadata by player id.
 
 /**
  * Connect player events to DTM.
@@ -10,17 +7,9 @@ var handler = require('../util/event-handler.js'),
 module.exports = function () {
     if (!window.DDO || !window.DDO.action) {
         console.warn('[cmAnvato] Cannot find DDO object! Video metrics are OFFLINE.');
-    }
-
-    window.anvp = window.anvp || {};
-    anvp.listener = function (event) {
-        /**
-         * Trigger any player event for non-metrics code to use.
-         * Video playlists use these events.
-         */
-        handler.trigger(event.name, event);
-
-        if (window.DDO && window.DDO.action) {
+    } else {
+        window.anvp = window.anvp || {};
+        anvp.listener = function (event) {
             var id = event.sender;
 
             if (event.name === 'METADATA_LOADED') {
@@ -45,8 +34,8 @@ module.exports = function () {
             } else if (event.name === 'VIDEO_COMPLETED') {
                 fire('videoComplete', id);
             }
-        }
-    };
+        };
+    }
 };
 
 /**

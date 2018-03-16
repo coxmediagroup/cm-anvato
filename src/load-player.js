@@ -2,7 +2,8 @@ var parseSettings = require('./util/parse-settings.js'),
     bindOnReady = require('./bindings/ready.js'),
     bindBeforeVideoLoad = require('./bindings/before-video-load.js'),
     nrvideo = require('./extensions/newrelic.min.js'),
-    bindChartbeat = require('./extensions/chartbeat/bind-meta.js');
+    bindChartbeat = require('./extensions/chartbeat/bind-meta.js'),
+    cache = require('./extensions/player-cache.js');
 
 /**
  * # Load Player
@@ -26,6 +27,9 @@ module.exports = function (id, container) {
         playlist: container.getAttribute('data-videoid').split(','),
         autoplay: settings.autoplay
     });
+
+    // Cache this new player and handle any cached player requests.
+    cache.add(id, player);
 
     // Add player to NewRelic video tracker.
     if (window.newrelic) {
