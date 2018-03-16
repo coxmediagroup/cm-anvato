@@ -1,11 +1,22 @@
-var handler = require('./util/event-handler.js'),
-    loadPlayers = require('./load-players.js'),
-    setupDTM = require('./extensions/dtm.js');
-    setupChartbeat = require('./extensions/chartbeat/setup.js');
+var loadPlayers = require('./load-players.js'),
+    setupDTM = require('./extensions/dtm.js'),
+    setupChartbeat = require('./extensions/chartbeat/setup.js'),
+    cache = require('./extensions/player-cache.js');
 
 module.exports = {
     /**
-     * ## anvato.setup()
+     * Safely fetch a player regardless of Anvato's load state.
+     * If a player is not created yet, the request will be cached.
+     */
+    player: function (id) {
+        return {
+            // Emulate a Promise.
+            then: function (resolve) {
+                cache.get(id, resolve);
+            }
+        };
+    },
+    /**
      * Setup all video players in the page.
      */
     setup: function () {
@@ -20,20 +31,16 @@ module.exports = {
         loadPlayers();
     },
     /**
-     * ## anvato.loadPlayers()
      * Manually load any pending video players. Note this method assumes global
      * state has finished setting up.
-     * @see `anvato.setup()`
      */
     loadPlayers: loadPlayers,
     /**
-     * ## anvato.setupMetrics()
      * Set up metrics for pages that load videos manually.
      */
     setupMetrics: setupDTM,
     /**
-     * ## anvato.set(name, value)
-     * Apply new common config. This must be called before `anvato.setup()`.
+     * Syntactic sugar to apply common config.
      */
     set: function (name, value) {
         var anvp = window.anvp = window.anvp || {};
@@ -42,23 +49,7 @@ module.exports = {
         anvp.common.config[name] = value;
     },
     /**
-     * ## anvato.pauseAll()
-     * @see ./pause-all.js
+     * Pause all players in the page.
      */
-    pauseAll: require('./pause-all.js'),
-    /**
-     * ## anvato.on(name, callback)
-     * @see ./util/event-handler.js
-     */
-    on: handler.on,
-    /**
-     * ## anvato.one(name, callback)
-     * @see ./util/event-handler.js
-     */
-    one: handler.one,
-    /**
-     * ## anvato.off(name, callback)
-     * @see ./util/event-handler.js
-     */
-    off: handler.off
+    pauseAll: require('./pause-all.js')
 };
