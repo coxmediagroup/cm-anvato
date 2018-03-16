@@ -79,17 +79,12 @@ Pauses all players in the page.
 ```js
 anvato.pauseAll();
 ```
-### anvato.on|one(name, callback)
-Listen to a system event.
+### anvato.player(id)
+Safely fetch a player regardless of Anvato load state. Requests for players that don't exist yet are cached until that the player exists. Returns a Promise that provides the player instance. See [Anvato's documentation](https://dev.anvato.net/api/player#reference-guide) for more information on the player SDK.
 ```js
-anvato.on('METADATA_LOADED', function (event) {});
-anvato.one('FIRST_FRAME_READY', function (event) {});
-```
-### anvato.off([name])
-Stop listening to a system event.
-```js
-anvato.off('METADATA_LOADED');
-anvato.off();
+anvato.player('p0').then(function (player) {
+	player.on('METADATA_LOADED', function () {});
+});
 ```
 
 ## Debug Controls

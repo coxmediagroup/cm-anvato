@@ -1,6 +1,5 @@
 var cmg = require('./cmg.js'),
-    options = require('../util/environment-options.js'),
-    handler = require('../util/event-handler.js');
+    options = require('../util/environment-options.js');
 
 /**
  * # buildAdConfig()
