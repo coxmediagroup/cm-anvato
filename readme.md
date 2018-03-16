@@ -55,7 +55,7 @@ The optional settings `autoplay` and `muted` default to `false`, but can be over
 ```
 The `playlist` setting is a `<p:list>` of vpx objects. Unfortunately Methode does not allow lists to be used as `currentObject` and so must be passed in using the `<p:param>` tag. The optional `limit` setting defaults to `10` is the maximum number of videos to include from your list - starting at index 0. The `autoplay` and `muted` settings default to `false` and work as expected for playlists.
 
-## JavaScript API
+## JavaScript SDK
 
 ### anvato.get(id)
 Safely fetch a player regardless of Anvato load state. Requests for players that don't exist yet are cached until the player exists. Returns a Promise that provides the player instance. See [Anvato's documentation](https://dev.anvato.net/api/player#reference-guide) for more information on the player SDK.
