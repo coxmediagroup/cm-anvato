@@ -57,6 +57,13 @@ The `playlist` setting is a `<p:list>` of vpx objects. Unfortunately Methode doe
 
 ## JavaScript API
 
+### anvato.get(id)
+Safely fetch a player regardless of Anvato load state. Requests for players that don't exist yet are cached until the player exists. Returns a Promise that provides the player instance. See [Anvato's documentation](https://dev.anvato.net/api/player#reference-guide) for more information on the player SDK.
+```js
+anvato.get('p0').then(function (player) {
+    player.on('METADATA_LOADED', function () {});
+});
+```
 ### anvato.set(name, value)
 Update the `anvp.common.config` object.
 ```js
@@ -78,13 +85,6 @@ anvato.loadPlayers();
 Pauses all players in the page.
 ```js
 anvato.pauseAll();
-```
-### anvato.get(id)
-Safely fetch a player regardless of Anvato load state. Requests for players that don't exist yet are cached until that the player exists. Returns a Promise that provides the player instance. See [Anvato's documentation](https://dev.anvato.net/api/player#reference-guide) for more information on the player SDK.
-```js
-anvato.get('p0').then(function (player) {
-    player.on('METADATA_LOADED', function () {});
-});
 ```
 
 ## Debug Controls
