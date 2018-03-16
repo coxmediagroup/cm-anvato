@@ -2,7 +2,7 @@ var loadPlayers = require('./load-players.js'),
     setupDTM = require('./extensions/dtm.js'),
     setupChartbeat = require('./extensions/chartbeat/setup.js'),
     cache = require('./util/player-cache.js'),
-    events = require('./util/event-cache.js');
+    events = require('./util/event-handler.js');
 
 module.exports = {
     /**
@@ -20,10 +20,11 @@ module.exports = {
     getAll: function () {
         return {
             then: function (resolve) {
-                events.on('loaded', resolve);
+                events.on('cmg/loaded', resolve);
             }
         };
     },
+    on: events.on,
     /**
      * Setup all video players in the page.
      */

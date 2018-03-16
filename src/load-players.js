@@ -2,7 +2,7 @@ var loadPlayer = require('./load-player.js'),
     options = require('./util/environment-options.js'),
     bundle = options.stage ? 'stage' : 'prod',
     ids = require('./util/id-factory.js'),
-    events = require('./util/event-cache.js');
+    events = require('./util/event-handler.js');
 
 // Ensure `anvload.js` has been loaded before loading any players.
 module.exports = function () {
@@ -31,5 +31,5 @@ function loadPlayers() {
         cache.push(loadPlayer(id, player));
     }
 
-    events.trigger('loaded', cache);
+    events.trigger('cmg/loaded', cache);
 }
