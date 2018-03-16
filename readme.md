@@ -4,7 +4,7 @@ Single-point install for the Anvato video player.
 
     npm i coxmediagroup/cm-anvato --save
 
-This module is also exposed as a global variable in `dist/cmanvato.min.js`.
+This module is also exposed as global variable `cmanvato` in `dist/cmanvato.min.js`.
 
 This JavaScript module is intended for use with this Methode tag:
 
