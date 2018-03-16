@@ -6,24 +6,25 @@ var loadPlayers = require('./load-players.js'),
 
 module.exports = {
     /**
-     * Safely fetch a player regardless of Anvato's load state.
-     * If a player is not created yet, the request will be cached.
+     * Safely fetch a player regardless of Anvato's load state. If a player
+     * is not created yet, the request will be cached. If no id is provided,
+     * then return all players.
      */
     get: function (id) {
         return {
             // Emulate a Promise.
             then: function (resolve) {
-                cache.get(id, resolve);
+                if (id) {
+                    cache.get(id, resolve);
+                } else {
+                    events.on('cmg/loaded', resolve);
+                }
             }
         };
     },
-    getAll: function () {
-        return {
-            then: function (resolve) {
-                events.on('cmg/loaded', resolve);
-            }
-        };
-    },
+    /**
+     * Provide an easy way to hook into the global event handler.
+     */
     on: events.on,
     /**
      * Setup all video players in the page.
