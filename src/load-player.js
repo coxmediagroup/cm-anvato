@@ -3,7 +3,7 @@ var parseSettings = require('./util/parse-settings.js'),
     bindBeforeVideoLoad = require('./bindings/before-video-load.js'),
     nrvideo = require('./extensions/newrelic.min.js'),
     bindChartbeat = require('./extensions/chartbeat/bind-meta.js'),
-    cache = require('./extensions/player-cache.js');
+    cache = require('./util/player-cache.js');
 
 /**
  * # Load Player
@@ -40,4 +40,6 @@ module.exports = function (id, container) {
 
     // Setup event bindings for Chartbeat's Strategy.
     bindChartbeat(player);
+
+    return player;
 };

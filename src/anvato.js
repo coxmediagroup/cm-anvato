@@ -1,7 +1,8 @@
 var loadPlayers = require('./load-players.js'),
     setupDTM = require('./extensions/dtm.js'),
     setupChartbeat = require('./extensions/chartbeat/setup.js'),
-    cache = require('./extensions/player-cache.js');
+    cache = require('./util/player-cache.js'),
+    events = require('./util/event-cache.js');
 
 module.exports = {
     /**
@@ -13,6 +14,13 @@ module.exports = {
             // Emulate a Promise.
             then: function (resolve) {
                 cache.get(id, resolve);
+            }
+        };
+    },
+    getAll: function () {
+        return {
+            then: function (resolve) {
+                events.on('loaded', resolve);
             }
         };
     },
