@@ -1,6 +1,6 @@
 {
   "name": "cm-anvato",
-  "version": "2.12.41",
+  "version": "2.12.42",
   "main": "src/anvato.js",
   "private": true,
   "dependencies": {},
