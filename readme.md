@@ -135,7 +135,8 @@ Override `vastLoadTimeout` player setting.
 Override `loadVideoTimeout` player setting.
 
 ## Contributing
-1. Setup the tools `$ npm i`
+1. Install grunt `$ npm -g i grunt-cli`
+1. Install the project tools `$ npm i`
 1. Make your code changes.
 1. Run `$ grunt`.
 1. Commit your changes.
