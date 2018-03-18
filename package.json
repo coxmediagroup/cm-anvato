@@ -1,6 +1,6 @@
 {
   "name": "cm-anvato",
-  "version": "2.12.19",
+  "version": "2.12.20",
   "main": "src/anvato.js",
   "private": true,
   "dependencies": {},
@@ -10,7 +10,7 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.3.0",
     "matchdep": "^2.0.0",
-    "methode-publishing": "github:coxmediagroup/methode-publishing#v1.1.0"
+    "methode-publishing": "github:coxmediagroup/methode-publishing#v1.1.1"
   },
   "repository": {
     "type": "git",
