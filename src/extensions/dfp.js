@@ -1,5 +1,6 @@
 var cmg = require('./cmg.js'),
-    options = require('../util/environment-options.js');
+    options = require('../util/environment-options.js'),
+    version = require('../../package.json').version;
 
 /**
  * # buildAdConfig()
@@ -67,15 +68,20 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
 
     // Log this video's ad targeting for traffickers to use.
     console.info(
-        '\n/-------- VIDEO AD TARGETING --------/\n' +
+        '\n/* -----====== VIDEO AD TARGETING LOG (' + id + ') ======----- */\n' +
         video.def_title + '\n' +
-        JSON.stringify(config.keyValues, null, 3) + '\n' +
-        ' - Anvato MCP:\n\t[TAGS] ' + video.tags + '\n' +
-        '\t[CATEGORIES] ' + video.categories + '\n' +
-        ' - Methode VPX:\n\t[TOPICS] ' + vpxTopics + '\n' +
-        '\t[CATEGORIES] ' + vpxCategories + '\n' +
-        ' - Methode PAGE:\n\t[TOPICS] ' + cmg.adconf.targeting.topics + '\n' +
-        '\t[CATEGORIES] ' + cmg.adconf.targeting.categories
+        JSON.stringify(config.keyValues, null, 3) +
+        '\n\nCategory and Tag Information:\n-------------' +
+        '\n - Anvato MCP:\n\t[TAGS] ' + video.tags +
+        '\n\t[CATEGORIES] ' + video.categories +
+        '\n - Methode VPX:\n\t[TOPICS] ' + vpxTopics +
+        '\n\t[CATEGORIES] ' + vpxCategories +
+        '\n - Methode PAGE:\n\t[TOPICS] ' + cmg.adconf.targeting.topics +
+        '\n\t[CATEGORIES] ' + cmg.adconf.targeting.categories +
+        '\n\nSystem Information:\n-------------\n' +
+        'cm-anvato version ' + version +
+        '\nAnvato player version ' + window.anvp.version +
+        '\n/* -----====== END VIDEO AD TARGETING LOG (' + id + ') ======----- */'
     );
 
     // Return the new ad targeting.
