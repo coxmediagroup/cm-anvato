@@ -122,9 +122,6 @@ Override the default volume level for all players.
 #### ?anvato=noads
 Disable pre-roll for all players.
 
-#### ?anvato=uid-&lt;value&gt;
-Tag your NewRelic actions with a custom id.
-
 #### ?anvato=startTimeout-&lt;value&gt;
 Override `startTimeout` player setting.
 
