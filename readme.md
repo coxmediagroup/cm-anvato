@@ -1,5 +1,5 @@
 # cm-anvato
-*2.12.42*
+*v2.12.42*
 
 Single-point install for the Anvato video player.
 
