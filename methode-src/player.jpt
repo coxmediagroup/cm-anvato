@@ -43,7 +43,7 @@
             data-videoid="${videoId}"
             data-autoplay="${cacheScope.autoplay or false}"
             data-muted="${cacheScope.muted or false}"
-            data-recom="${cacheScope.autoadvance}"
+            data-recom="${ empty cacheScope.autoadvance ? true : cacheScope.autoadvance}"
             data-topics="${topics}"
             data-categories="${categories}"
             data-cmsid="${portalContext.env.vast_cmsid}"
