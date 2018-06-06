@@ -25,7 +25,8 @@ module.exports = function (id, container) {
     player.init({
         accessKey: container.getAttribute('data-access-key') || window.cmg.anvatoConf.accessKey,
         playlist: container.getAttribute('data-videoid').split(','),
-        autoplay: settings.autoplay
+        autoplay: settings.autoplay,
+        recom: settings.recom
     });
 
     // Cache this new player and handle any cached player requests.

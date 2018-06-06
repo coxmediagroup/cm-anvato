@@ -7,7 +7,8 @@ var options = require('./environment-options.js');
 module.exports = function (player) {
     var topics = player.getAttribute('data-topics') || '',
         autoplay = player.getAttribute('data-autoplay') === 'true',
-        muted = player.getAttribute('data-muted') === 'true';
+        muted = player.getAttribute('data-muted') === 'true',
+        autoadvance = player.getAttribute('data-recom') === 'true';
     topics = topics.split(',');
 
     /**
@@ -25,6 +26,7 @@ module.exports = function (player) {
      */
     return {
         autoplay: 'autoplay' in options ? (options.autoplay === 'true') : autoplay,
-        muted: 'mute' in options ? (options.mute === 'true') : muted
+        muted: 'mute' in options ? (options.mute === 'true') : muted,
+        recom: 'recom' in options ? (options.recom === 'true') : autoadvance
     };
 };
