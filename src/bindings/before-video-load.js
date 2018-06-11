@@ -29,6 +29,11 @@ module.exports = function (player, id, container) {
                         playCount === 1 ? container.getAttribute('data-topics') : [],
                         playCount === 1 ? container.getAttribute('data-categories') : []
                     )
+                },
+                moat: {
+                    clientSide: {
+                        partnerCode: 'coxmediagroupvidint348266005452'
+                    }
                 }
             }
         };
