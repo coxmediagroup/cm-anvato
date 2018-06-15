@@ -14,17 +14,6 @@ module.exports = function (player, id, container) {
             return false;
         }
 
-        var overlaysize;
-        if (document.documentElement.clientWidth < 500 ){
-            overlaysize = "small";
-        }
-        else if (document.documentElement.clientWidth < 900) {
-            overlaysize = "medium";
-        }
-        else {
-            overlaysize = "large";
-        }
-
         // Update the DFP plugin with new ad targeting.
         playCount += 1;
         return {
@@ -38,8 +27,7 @@ module.exports = function (player, id, container) {
                         window.parseInt(container.getAttribute('data-dfp-timeout')),
                         // Only the first video played uses the VPX's topics and categories.
                         playCount === 1 ? container.getAttribute('data-topics') : [],
-                        playCount === 1 ? container.getAttribute('data-categories') : [],
-                        overlaysize
+                        playCount === 1 ? container.getAttribute('data-categories') : []
                     )
                 }
             }

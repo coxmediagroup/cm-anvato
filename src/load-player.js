@@ -26,10 +26,7 @@ module.exports = function (id, container) {
         accessKey: container.getAttribute('data-access-key') || window.cmg.anvatoConf.accessKey,
         playlist: container.getAttribute('data-videoid').split(','),
         autoplay: settings.autoplay,
-        recom: settings.recom,
-        overlay: {
-            marginBottom: "55px"
-        }
+        recom: settings.recom
     });
 
     // Cache this new player and handle any cached player requests.

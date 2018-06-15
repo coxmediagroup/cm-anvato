@@ -11,10 +11,9 @@ var cmg = require('./cmg.js'),
  * @param {integer} [dfpTimeout] Optional time in seconds for pre-roll timeout override.
  * @param {string|array<string>} vpxTopics Topics of the vpx object.
  * @param {string|array<string>} vpxCategories Categories of the vpx object.
- * @param {string} overlaysize Size of the overlay ad.
  * @return {object} New DFP plugin config.
  */
-module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCategories, overlaysize) {
+module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCategories) {
     var config;
 
     if (!cmg.adconf.adunit) {
@@ -57,11 +56,8 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
             obj_id: cmg.adconf.targeting.obj_id,
             uuid: cmg.adconf.targeting.uuid,
             player_id: id,
-            environ: cmg.adconf.targeting.environ,
-            overlaysize: overlaysize
+            environ: cmg.adconf.targeting.environ
         },
-        hideNonLinearAdsOnClose: true,
-        useStylizedNonLinearAds: true,
         macros: {
             adunit: cmg.adconf.adunit,
             cmsid: cmsid,
