@@ -1,5 +1,5 @@
 # cm-anvato
-*v2.13.0*
+*v2.16.0*
 
 Single-point install for the Anvato video player.
 
@@ -36,7 +36,7 @@ CMS id for a given site. This value is provided by the Ad Operations team.
 In this example `portalContext.env.anvatoPlayer` is an environment property that contains the full path to `player.jpt`. Using an environment property will allow your entire site to point at a single version of the player and will allow you to update an entire site to a new version should the need arise.
 Here is an example entry from a site's `environments.properties` file:
 ```
-anvatoPlayer = /PortalConfig/common/video/2.13.0/player.jpt
+anvatoPlayer = /PortalConfig/common/video/2.16.0/player.jpt
 ```
 ### Single Video Player
 ```xml
