@@ -15,47 +15,6 @@ This module includes support for metrics and ads.
 
 Requires ad tags version 3.8.0 or higher.
 
-## Site Settings
-### anvatoPlayer
-Path to the desired version of `player.jpt` for your site. See description in the [Template Include](#template-include) section below for more detail.
-
-### anvatoAccessKeyV3
-Access key for a given site. This value is provided by the Video team.
-
-### vast_cmsid
-CMS id for a given site. This value is provided by the Ad Operations team.
-
-### anvatoDFPTimeout
-*[Optional]* Override for the 20 second pre-roll timeout. Value in seconds.
-
-## Template Include
-```xml
-<!-- Default are autoplay off and not muted. -->
-<p:include webObject="${vpxObject}" styleName="${portalContext.env.anvatoPlayer}" />
-```
-In this example `portalContext.env.anvatoPlayer` is an environment property that contains the full path to `player.jpt`. Using an environment property will allow your entire site to point at a single version of the player and will allow you to update an entire site to a new version should the need arise.
-Here is an example entry from a site's `environments.properties` file:
-```
-anvatoPlayer = /PortalConfig/common/video/2.13.0/player.jpt
-```
-### Single Video Player
-```xml
-<p:include webObject="${vpxObject}" styleName="${portalContext.env.anvatoPlayer}">
-    <p:param name="autoplay" value="true" />
-    <p:param name="muted" value="true" />
-</p:include>
-```
-The optional settings `autoplay` and `muted` default to `false`, but can be overwritten manually.
-
-### Playlist Player
-```xml
-<p:include url="${portalContext.env.anvatoPlayer}">
-    <p:param name="playlist" value="${vpxList}" />
-    <p:param name="limit" value="10" />
-</p:include>
-```
-The `playlist` setting is a `<p:list>` of vpx objects. Unfortunately Methode does not allow lists to be used as `currentObject` and so must be passed in using the `<p:param>` tag. The optional `limit` setting defaults to `10` is the maximum number of videos to include from your list - starting at index 0. The `autoplay` and `muted` settings default to `false` and work as expected for playlists.
-
 ## JavaScript SDK
 
 ### anvato.get([id])
@@ -97,39 +56,6 @@ Pauses all players in the page.
 ```js
 anvato.pauseAll();
 ```
-
-## Debug Controls
-Exposed are a set of manual overrides to debug a player in your browser.
-```
-page.com?anvato=setting|setting-value
-```
-
-#### ?anvato=stage
-Use the staging player instead of the production player.
-
-#### ?anvato=autoplay-&lt;true|false&gt;
-Force autoplay on or off for all players.
-
-#### ?anvato=recom-&lt;true|false&gt;
-Force recommended list on or off for all players.
-
-#### ?anvato=mute-&lt;true|false&gt;
-Force player mute on or off for all players.
-
-#### ?anvato=volume-&lt;value&gt;
-Override the default volume level for all players.
-
-#### ?anvato=noads
-Disable pre-roll for all players.
-
-#### ?anvato=startTimeout-&lt;value&gt;
-Override `startTimeout` player setting.
-
-#### ?anvato=vastLoadTimeout-&lt;value&gt;
-Override `vastLoadTimeout` player setting.
-
-#### ?anvato=loadVideoTimeout-&lt;value&gt;
-Override `loadVideoTimeout` player setting.
 
 ## Contributing
 1. Install grunt `$ npm -g i grunt-cli`
