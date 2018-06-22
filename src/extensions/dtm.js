@@ -33,10 +33,9 @@ module.exports = function () {
             } else if (event.name === 'VIDEO_STARTED') {
                 // Ensure videoStart action only fires once per content.
                 if (!playCache[id]) {
-                    fire(['videoStart', 'videoContentPlay'], id);
-                } else {
-                    fire('videoContentPlay', id);
+                    fire('videoStart', id);
                 }
+                fire('videoContentPlay', id);
             } else if (event.name === 'USER_PAUSE') {
                 fire('videoPause', id);
             } else if (event.name === 'VIDEO_COMPLETED') {
@@ -47,31 +46,26 @@ module.exports = function () {
 };
 
 /**
- * Anvato player only allows for a single set of async methods to run at a time. So
- * instead of calling fire() multiple times in a row, pass in an array of event names.
+ * Publish a DDO action.
+ * @param {String} name DDO action name
+ * @param {String} id Anvato player id.
  */
-function fire(names, id) {
+function fire(name, id) {
     var player = window.anvp[id];
-
-    // Ensure names is an array.
-    names = [].concat(names);
 
     // Accommodate for the async player method.
     player.getCurrentTime(function (time) {
-        // Publish the DDO actions.
-        names.forEach(function (name) {
-            window.DDO.action(name, {
-                videoContentType: player.mergedConfig.live ? 'live' : 'vod',
-                videoId: meta[id].videoid,
-                videoName: meta[id].title,
-                videoPlayer: 'Anvato Universal Player-' + id,
-                videoPlayType: player.mergedConfig.autoplay ? 'auto-play' : 'manual play',
-                videoSiteAccountID: player.mergedConfig.accessKey,
-                videoSecondsViewed: time,
-                videoSource: 'Anvato',
-                videoTopics: meta[id].tags,
-                videoTotalTime: meta[id].duration
-            });
+        window.DDO.action(name, {
+            videoContentType: player.mergedConfig.live ? 'live' : 'vod',
+            videoId: meta[id].videoid,
+            videoName: meta[id].title,
+            videoPlayer: 'Anvato Universal Player-' + id,
+            videoPlayType: player.mergedConfig.autoplay ? 'auto-play' : 'manual play',
+            videoSiteAccountID: player.mergedConfig.accessKey,
+            videoSecondsViewed: time,
+            videoSource: 'Anvato',
+            videoTopics: meta[id].tags,
+            videoTotalTime: meta[id].duration
         });
     });
 }
