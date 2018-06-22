@@ -3,7 +3,8 @@ var parseSettings = require('./util/parse-settings.js'),
     bindBeforeVideoLoad = require('./bindings/before-video-load.js'),
     nrvideo = require('./extensions/newrelic.min.js'),
     bindChartbeat = require('./extensions/chartbeat/bind-meta.js'),
-    cache = require('./util/player-cache.js');
+    cache = require('./util/player-cache.js'),
+    cmg = require('./extensions/cmg.js');
 
 /**
  * # Load Player
@@ -21,13 +22,25 @@ module.exports = function (id, container) {
     // Setup pre-roll settings unless ads are manually disabled.
     bindBeforeVideoLoad(player, id, container);
 
-    // Load the video player.
-    player.init({
-        accessKey: container.getAttribute('data-access-key') || window.cmg.anvatoConf.accessKey,
+    // Generate the player config object.
+    var config = {
+        accessKey: container.getAttribute('data-access-key') || cmg.anvatoConf.accessKey, // DEPRECATED
         playlist: container.getAttribute('data-videoid').split(','),
-        autoplay: settings.autoplay,
-        recom: settings.recom
+        autoplay: settings.autoplay, // DEPRECATED
+        recom: settings.recom // DEPRECATED
+    };
+    // Merge in any native anvato settings.
+    [].forEach.call(container.attributes, function (pair) {
+        if (pair.name.indexOf('data-anv-') === 0) {
+            var name = pair.name.substr(9).replace(/-([a-z])/g, function (match, word) {
+                return word.toUpperCase();
+            });
+            config[name] = pair.value;
+        }
     });
+
+    // Load the video player.
+    player.init(config);
 
     // Cache this new player and handle any cached player requests.
     cache.add(id, player);
