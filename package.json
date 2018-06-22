@@ -10,7 +10,7 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.3.0",
     "matchdep": "^2.0.0",
-    "methode-publishing": "github:coxmediagroup/methode-publishing#v1.2.0"
+    "methode-publishing": "git+ssh://git@github.com:coxmediagroup/methode-publishing.git#v1.2.0"
   },
   "repository": {
     "type": "git",
