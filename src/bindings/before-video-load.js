@@ -15,6 +15,7 @@ module.exports = function (player, id, container) {
         }
 
         // Update the DFP plugin with new ad targeting.
+        var overlay = container.getAttribute('data-overlay') === 'true';
         playCount += 1;
         return {
             plugins: {
@@ -27,10 +28,14 @@ module.exports = function (player, id, container) {
                         window.parseInt(container.getAttribute('data-dfp-timeout')),
                         // Only the first video played uses the VPX's topics and categories.
                         playCount === 1 ? container.getAttribute('data-topics') : [],
-                        playCount === 1 ? container.getAttribute('data-categories') : []
+                        playCount === 1 ? container.getAttribute('data-categories') : [],
+                        overlay
                     )
                 }
-            }
+            },
+            overlay: overlay ? {
+                marginBottom: '55px'
+            } : void(0)
         };
     });
 };

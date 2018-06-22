@@ -9,18 +9,6 @@ anvp.common = anvp.common || {};
  * that have already been applied to the global anvp object.
  */
 
- var overlaysize;
-
-     if (document.documentElement.clientWidth < 500 ){
-         overlaysize = "small";
-     }
-     else if (document.documentElement.clientWidth < 900) {
-         overlaysize = "medium";
-     }
-     else {
-         overlaysize = "large";
-     }
-
 anvp.common.config = mergeLeft({
     trackTimePeriod: true,
     token: ' ',
@@ -36,17 +24,9 @@ anvp.common.config = mergeLeft({
         },
         dfp: {
             clientSide: {
-                adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]',
-                keyValues: {
-                    overlaysize: overlaysize
-                },
-                hideNonLinearAdsOnClose: true,
-                useStyledNonLinearAds: true
+                adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]'
             }
         }
-    },
-    overlay: {
-        marginBottom: '55px'
     },
     profile: 'cox'
 }, anvp.common.config);

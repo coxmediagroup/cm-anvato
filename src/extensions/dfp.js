@@ -13,7 +13,7 @@ var cmg = require('./cmg.js'),
  * @param {string|array<string>} vpxCategories Categories of the vpx object.
  * @return {object} New DFP plugin config.
  */
-module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCategories) {
+module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCategories, overlay) {
     var config;
 
     if (!cmg.adconf.adunit) {
@@ -34,6 +34,13 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
         vpxCategories,
         video.categories
     ).toString();
+
+    var breakpoint = 'large';
+    if (innerWidth < 500) {
+        breakpoint = 'small';
+    } else if (innerWidth < 900) {
+        breakpoint = 'medium';
+    }
 
     // Build the new DFP plugin config.
     // TODO: These overrides need cleanup.
@@ -56,8 +63,11 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
             obj_id: cmg.adconf.targeting.obj_id,
             uuid: cmg.adconf.targeting.uuid,
             player_id: id,
-            environ: cmg.adconf.targeting.environ
+            environ: cmg.adconf.targeting.environ,
+            overlaysize: overlay ? breakpoint : void(0)
         },
+        useStyledNonLinearAds: overlay,
+        hideNonLinearAdsOnClose: overlay,
         macros: {
             adunit: cmg.adconf.adunit,
             cmsid: cmsid,
