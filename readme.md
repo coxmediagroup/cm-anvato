@@ -1,6 +1,9 @@
 # cm-anvato
 *v2.14.0*
 
+[![Dependencies](https://img.shields.io/david/coxmediagroup/cm-anvato.svg)](./package.json)
+[![Dependencies](https://img.shields.io/david/dev/coxmediagroup/cm-anvato.svg)](./package.json)
+
 Single-point install for the Anvato video player.
 
     npm i coxmediagroup/cm-anvato --save
