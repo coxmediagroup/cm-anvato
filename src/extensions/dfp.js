@@ -21,6 +21,14 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
         return;
     }
 
+    // Breakpoint targeting for nonlinear overlays.
+    var breakpoint = 'large';
+    if (innerWidth < 500) {
+        breakpoint = 'small';
+    } else if (innerWidth < 900) {
+        breakpoint = 'medium';
+    }
+
     // Merge all topics.
     var topics = [].concat(
         cmg.adconf.targeting.topics,
@@ -43,6 +51,7 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
         vastLoadTimeout: 'vastLoadTimeout' in options ? parseInt(options.vastLoadTimeout) : 10,
         loadVideoTimeout: 'loadVideoTimeout' in options ? parseInt(options.loadVideoTimeout) : 10,
         adTagUrl: adtag,
+        hideNonLinearAdsOnClose: true,
         keyValues: {
             category: categories,
             video: video.upload_id,
@@ -56,7 +65,8 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
             obj_id: cmg.adconf.targeting.obj_id,
             uuid: cmg.adconf.targeting.uuid,
             player_id: id,
-            environ: cmg.adconf.targeting.environ
+            environ: cmg.adconf.targeting.environ,
+            overlaysize: breakpoint
         },
         macros: {
             adunit: cmg.adconf.adunit,
