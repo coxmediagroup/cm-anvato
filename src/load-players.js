@@ -27,7 +27,15 @@ function loadPlayers() {
 
     for (i = 0; i < count; i += 1) {
         player = players[0];
-        id = player.id = 'p' + ids.next();
+
+        if (player.id) {
+            // Retain any existing element id.
+            id = player.id;
+        } else {
+            // Otherwise, generate a new safe id.
+            id = player.id = 'p' + ids.next();
+        }
+
         cache.push(loadPlayer(id, player));
     }
 
