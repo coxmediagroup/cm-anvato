@@ -3,6 +3,7 @@ var parseSettings = require('./util/parse-settings.js'),
     bindBeforeVideoLoad = require('./bindings/before-video-load.js'),
     nrvideo = require('./extensions/newrelic.min.js'),
     bindChartbeat = require('./extensions/chartbeat/bind-meta.js'),
+    parseAttribute = require('./util/parse-attribute.js'),
     cache = require('./util/player-cache.js'),
     cmg = require('./extensions/cmg.js');
 
@@ -30,14 +31,16 @@ module.exports = function (id, container) {
         recom: settings.recom // DEPRECATED
     };
     // Merge in any native anvato settings.
-    [].forEach.call(container.attributes, function (pair) {
+    var count = container.attributes.length, i, pair;
+    for (i = 0; i < count; i += 1) {
+        pair = container.attributes[i];
         if (pair.name.indexOf('data-anv-') === 0) {
             var name = pair.name.substr(9).replace(/-([a-z])/g, function (match, word) {
                 return word.toUpperCase();
             });
-            config[name] = pair.value;
+            config[name] = parseAttribute(pair.value);
         }
-    });
+    }
 
     // Load the video player.
     player.init(config);
