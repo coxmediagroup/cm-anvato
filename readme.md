@@ -68,6 +68,7 @@ anvato.pauseAll();
 1. Install the project tools `$ npm i`
 1. Make your code changes.
 1. Run `$ grunt`.
+1. Update the `changelog.md` to describe your changes.
 1. Commit your changes.
 1. Run `$ grunt version:<major|minor|patch> --buildtask=default`. This repository uses strict [semver](http://semver.org) - meaning:
    * **major** *ONLY* if you introduced a breaking change to an existing public method.
