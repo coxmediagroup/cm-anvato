@@ -5,7 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 2
 
-#### [2.next]
+#### [2.16.2]
+- Retain existing plugin settings on the `anvp.common.config.plugins` object. Use provided values as defaults and shallow merge the plugins objects.
+- Fixed bad nonlinear ad overlay style.
 - Added changelog.
 
 #### [2.16.1]
