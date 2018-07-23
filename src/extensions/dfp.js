@@ -47,9 +47,6 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
     // TODO: These overrides need cleanup.
     var startTimeout = dfpTimeout || 20;
     config = {
-        startTimeout: 'startTimeout' in options ? parseInt(options.startTimeout) : startTimeout,
-        vastLoadTimeout: 'vastLoadTimeout' in options ? parseInt(options.vastLoadTimeout) : 10,
-        loadVideoTimeout: 'loadVideoTimeout' in options ? parseInt(options.loadVideoTimeout) : 10,
         adTagUrl: adtag,
         hideNonLinearAdsOnClose: true,
         keyValues: {
@@ -68,12 +65,16 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
             environ: cmg.adconf.targeting.environ,
             overlaysize: breakpoint
         },
+        loadVideoTimeout: 'loadVideoTimeout' in options ? parseInt(options.loadVideoTimeout) : 10,
         macros: {
             adunit: cmg.adconf.adunit,
             cmsid: cmsid,
             vid: 'ANV_ANV_' + video.upload_id,
             referrer_url: window.location.href
-        }
+        },
+        startTimeout: 'startTimeout' in options ? parseInt(options.startTimeout) : startTimeout,
+        useStyledNonLinearAds: true,
+        vastLoadTimeout: 'vastLoadTimeout' in options ? parseInt(options.vastLoadTimeout) : 10
     };
 
     // Log this video's ad targeting for traffickers to use.
