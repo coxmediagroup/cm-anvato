@@ -9,29 +9,31 @@ anvp.common = anvp.common || {};
  * that have already been applied to the global anvp object.
  */
 anvp.common.config = mergeLeft({
-    trackTimePeriod: true,
-    token: ' ',
-    width: '100%',
+    autoplay: false,
     height: '56.25%',
     mcp: 'anv',
-    autoplay: false,
-    volume: 'volume' in options ? options.volume : 0.5,
-    recom: 'recom' in options ? options.recom : true,
-    plugins: {
-        comscore: {
-            clientId: 6035944
-        },
-        dfp: {
-            clientSide: {
-                adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]'
-            }
-        },
-        overlay: {
-            marginBottom: '55px'
-        }
+    overlay: {
+        marginBottom: '55px'
     },
-    profile: 'cox'
+    profile: 'cox',
+    recom: 'recom' in options ? options.recom : true,
+    token: ' ',
+    trackTimePeriod: true,
+    volume: 'volume' in options ? options.volume : 0.5,
+    width: '100%'
 }, anvp.common.config);
+
+// Shallow merge in default plugins.
+anvp.common.config.plugins = mergeLeft({
+    comscore: {
+        clientId: 6035944
+    },
+    dfp: {
+        clientSide: {
+            adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]'
+        }
+    }
+}, anvp.common.config.plugins);
 
 // Create the customMetadata object if the metrics object is available.
 if (DDO && DDO.pageData && DDO.siteData && DDO.contentData) {
