@@ -14,11 +14,7 @@ module.exports = {
         return {
             // Emulate a Promise.
             then: function (resolve) {
-                if (id) {
-                    cache.get(id, resolve);
-                } else {
-                    events.on('cmg/loaded', resolve);
-                }
+                cache.get(id, resolve);
             }
         };
     },

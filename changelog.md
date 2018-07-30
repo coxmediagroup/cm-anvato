@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 2
 
+#### [2.16.4]
+- Fixed defect where get() would return only latest players. Calling get() should return all players no matter when added.
+
 #### [2.16.3]
 - Asset rebuild to fix version number in logs.
 

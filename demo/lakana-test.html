@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+
+    <!-- Load the library. -->
+    <script src="../dist/cmanvato.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Created automatically by cm-ads library <ads:init /> -->
+    <script style="display:none">
+    window.cmg=window.cmg||{};cmg.adconf={slotconf:[],targeting:{}};</script>
+    <script style="display:none">
+    cmg.adconf.adunit='11347122/Atlanta_NP/ajc_web_default/news/atlanta_news';</script>
+    <script style="display:none">
+    (function(){cmg.adconf.targeting.sky='Broken Clouds'||'ERROR';cmg.adconf.targeting.weather='';var floor=Math.floor(62/5)*5;cmg.adconf.targeting.temp_range=floor+' to '+(floor+4);}());</script>
+    <script style="display:none">
+    cmg.adconf.targeting.obj_type=location.pathname.indexOf('queryResult')>0?'List':'VideoProxy';cmg.adconf.targeting.obj_id='1.0.859175732';cmg.adconf.targeting.uuid='0a34750c-e0d0-477f-8030-54c4037293cd';</script>
+    <script style="display:none">
+    (function(){function getQueryParam(name){var q=location.search.match(new RegExp('[?&]'+name+'=([^&#]*)'));return q&&q[1];}
+    cmg.adconf.targeting.environ=location.search.indexOf('testads')>0?'debug':location.host.split('.')[0];cmg.adconf.targeting.mediatype='np-free';cmg.adconf.targeting.qa=getQueryParam('qa')||'';}());</script>
+    <script style="display:none">
+    cmg.adconf.breakpoints=[1,748,1005,1230,];cmg.adconf.targeting.topics=['FIRST FOUR ANNOUNCEMENT','news','newslocal','mobile','sports','brightcove','anvato','sponsored-content',];cmg.adconf.targeting.categories=['News',];</script>
+
+    <style>
+        iframe {
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h3>
+        <button type="button">Add New Player</button>
+    </h3>
+
+    <!-- Result of call to p:include /PortalConfig/common/components/video/<version>/player.jpt
+    4053705,4053709,4053711,4053712,4053714,4053486
+    -->
+    <div
+        id="test-id1"
+        class="anvato-player"
+        data-videoid="4053705,4053709"
+        data-anv-autoplay="false"
+        data-muted="false"
+        data-topics="FIRST FOUR ANNOUNCEMENT,news,newslocal,mobile,sports,brightcove,anvato,sponsored-content"
+        data-categories="first-vid"
+        data-cmsid="17573"
+        data-anv-access-key="3E80nAxoonVbOSW5zzIoduJbBgBQk9Mb"
+        data-anv-volume="0"
+    ></div>
+    <div
+        id="test-id2"
+        class="anvato-player"
+        data-videoid="4053711"
+        data-anv-autoplay="false"
+        data-muted="false"
+        data-topics="FIRST FOUR ANNOUNCEMENT,news,newslocal,mobile,sports,brightcove,anvato,sponsored-content"
+        data-categories="second-vid"
+        data-cmsid="17573"
+        data-anv-access-key="3E80nAxoonVbOSW5zzIoduJbBgBQk9Mb"
+        data-anv-volume="0"
+    ></div>
+    
+    <script>
+    $('h3 > button').on('click', function () {
+        $('<div>', {
+            'class': 'anvato-player',
+            'data-videoid': '4053486',
+            'data-anv-autoplay': false,
+            'data-muted': true,
+            'data-anv-access-key': '3E80nAxoonVbOSW5zzIoduJbBgBQk9Mb',
+            'data-cmsid': 17573
+        }).appendTo('body');
+        cmanvato.loadPlayers();
+    });
+    </script>
+
+    <!-- Once your DOM is finished setting up and you're ready to load videos. -->
+    <script>
+        cmanvato.setup();
+    </script>
+
+</body>
+</html>
