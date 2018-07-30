@@ -1,4 +1,5 @@
-var players = {},
+var objectValues = require('./object-values.js'),
+    players = {},
     requests = {};
 
 module.exports = {
@@ -6,7 +7,9 @@ module.exports = {
      * Get a player instance or cache its request.
      */
     get: function (id, resolve) {
-        if (id in players) {
+        if (!id) {
+            resolve(objectValues(players));
+        } else if (id in players) {
             // Player already exists, so resolve immediately.
             resolve(players[id]);
         } else {

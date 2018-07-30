@@ -1,8 +1,7 @@
 var loadPlayer = require('./load-player.js'),
     options = require('./util/environment-options.js'),
     bundle = options.stage ? 'stage' : 'prod',
-    ids = require('./util/id-factory.js'),
-    events = require('./util/event-handler.js');
+    ids = require('./util/id-factory.js');
 
 // Ensure `anvload.js` has been loaded before loading any players.
 module.exports = function () {
@@ -21,7 +20,6 @@ module.exports = function () {
 // Loop through all the `anvato-player` divs and load video players.
 function loadPlayers() {
     var players = document.getElementsByClassName('anvato-player'),
-        cache = [],
         count = players.length,
         i, player, id;
 
@@ -36,8 +34,6 @@ function loadPlayers() {
             id = player.id = 'p' + ids.next();
         }
 
-        cache.push(loadPlayer(id, player));
+        loadPlayer(id, player);
     }
-
-    events.trigger('cmg/loaded', cache);
 }
