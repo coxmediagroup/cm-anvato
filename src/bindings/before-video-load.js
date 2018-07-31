@@ -25,6 +25,7 @@ module.exports = function (player, id, container) {
                         container.getAttribute('data-cmsid') || window.cmg.anvatoConf.cmsid,
                         initConfig.plugins.dfp.clientSide.adTagUrl,
                         window.parseInt(container.getAttribute('data-dfp-timeout')),
+                        container.getAttribute('data-adunit'),
                         // Only the first video played uses the VPX's topics and categories.
                         playCount === 1 ? container.getAttribute('data-topics') : [],
                         playCount === 1 ? container.getAttribute('data-categories') : []

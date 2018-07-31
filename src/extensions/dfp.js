@@ -13,10 +13,10 @@ var cmg = require('./cmg.js'),
  * @param {string|array<string>} vpxCategories Categories of the vpx object.
  * @return {object} New DFP plugin config.
  */
-module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCategories) {
+module.exports = function (video, id, cmsid, adtag, dfpTimeout, adunit, vpxTopics, vpxCategories) {
     var config;
 
-    if (!cmg.adconf.adunit) {
+    if (!adunit && !cmg.adconf.adunit) {
         console.warn('[cmAnvato] Cannot find cm-ads! Video ad targeting is OFFLINE.');
         return;
     }
@@ -67,7 +67,7 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, vpxTopics, vpxCa
         },
         loadVideoTimeout: 'loadVideoTimeout' in options ? parseInt(options.loadVideoTimeout) : 10,
         macros: {
-            adunit: cmg.adconf.adunit,
+            adunit: adunit || cmg.adconf.adunit,
             cmsid: cmsid,
             vid: 'ANV_ANV_' + video.upload_id,
             referrer_url: window.location.href
