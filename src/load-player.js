@@ -25,11 +25,23 @@ module.exports = function (id, container) {
 
     // Generate the player config object.
     var config = {
-        accessKey: container.getAttribute('data-access-key') || cmg.anvatoConf.accessKey, // DEPRECATED
         playlist: container.getAttribute('data-videoid').split(','),
+        accessKey: container.getAttribute('data-access-key') || cmg.anvatoConf.accessKey, // DEPRECATED
         autoplay: settings.autoplay, // DEPRECATED
         recom: settings.recom // DEPRECATED
     };
+
+    // Apply player-level ad tag url override.
+    if (container.hasAttribute('data-adtagurl')) {
+        config.plugins = {
+            dfp: {
+                clientSide: {
+                    adTagUrl: container.getAttribute('data-adtagurl')
+                }
+            }
+        };
+    }
+
     // Merge in any native anvato settings.
     var count = container.attributes.length, i, pair;
     for (i = 0; i < count; i += 1) {
