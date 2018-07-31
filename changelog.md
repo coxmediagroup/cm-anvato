@@ -5,8 +5,8 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 2
 
-#### [2.17.0]
-- Added player-level adtag override as `data-adtagurl="...."`.
+#### [2.17.1]
+- Added player-level adunit override as `data-adunit="...."`.
 
 #### [2.16.4]
 - Fixed defect where get() would return only latest players. Calling get() should return all players no matter when added.
