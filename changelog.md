@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 2
 
+#### [2.18.0]
+- Added moat plugin to common config
+
 #### [2.17.1]
 - Added player-level adunit override as `data-adunit="...."`.
 

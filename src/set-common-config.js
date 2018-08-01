@@ -32,6 +32,11 @@ anvp.common.config.plugins = mergeLeft({
         clientSide: {
             adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=[adunit]&gdfp_req=1&env=vp&output=vast&description_url=[referrer_url]&content_page_url=[referrer_url]&vid=[vid]&cmsid=[cmsid]'
         }
+    },
+    moat: {
+        clientSide: {
+            partnerCode: 'coxmediagroupvidint348266005452'
+        }
     }
 }, anvp.common.config.plugins);
 
