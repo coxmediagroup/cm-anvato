@@ -19,6 +19,9 @@ This module includes support for metrics and ads.
 
 Requires ad tags version 3.8.0 or higher.
 
+This project adheres to [Semantic Versioning](http://semver.org/).
+All notable changes will be documented in [the changelog](https://github.com/coxmediagroup/cm-anvato/blob/master/changelog.md).
+
 ### [See this project's wiki for more information](https://github.com/coxmediagroup/cm-anvato/wiki)
 
 ## JavaScript SDK
