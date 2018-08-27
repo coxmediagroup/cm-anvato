@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 2
 
+#### [2.18.1]
+- Force players to use VMAP with the &ad_rule=1 VAST parameter.
+
 #### [2.18.0]
 - Added moat plugin to common config
 
