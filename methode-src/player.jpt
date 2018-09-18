@@ -13,17 +13,21 @@
 
 <%-- Build video id set based on object provided - either a playlist or a single vpx. --%>
 <c:choose>
-	<c:when test="${wt eq 'VideoProxy'}">
-		<p:out var="videoId" xvalue="$meta//Anvato/id" />
-	</c:when>
-	<c:otherwise>
-		<%-- This is a playlist, so generate the csv of all video ids. --%>
-		<c:forEach items="${cacheScope.playlist}" var="vpx" end="${empty cacheScope.limit ? 10 : cacheScope.limit}" varStatus="loop">
-			<p:object webObject="${vpx}" metadata="meta" />
-			<p:out var="id" xvalue="$meta//Anvato/id" />
-			<c:set var="videoId" value="${videoId}${id}${not loop.last ? ',' : ''}" />
-		</c:forEach>
-	</c:otherwise>
+    <c:when test="${not empty cacheScope.videoIdOverride}">
+        <%-- Allow for a custom video id set. Some properties build their own playlist  --%>
+        <c:set var="videoId" value="${cacheScope.videoIdOverride}" />
+    </c:when>
+    <c:when test="${wt eq 'VideoProxy'}">
+        <p:out var="videoId" xvalue="$meta//Anvato/id" />
+    </c:when>
+    <c:otherwise>
+        <%-- This is a playlist, so generate the csv of all video ids. --%>
+        <c:forEach items="${cacheScope.playlist}" var="vpx" end="${empty cacheScope.limit ? 10 : cacheScope.limit}" varStatus="loop">
+            <p:object webObject="${vpx}" metadata="meta" />
+            <p:out var="id" xvalue="$meta//Anvato/id" />
+            <c:set var="videoId" value="${videoId}${id}${not loop.last ? ',' : ''}" />
+        </c:forEach>
+    </c:otherwise>
 </c:choose>
 
 <%-- Drop in the player or report errors to NewRelic. --%>
