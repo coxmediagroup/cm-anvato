@@ -1,5 +1,5 @@
 # cm-anvato
-*v2.18.2*
+*v2.18.3*
 
 [![Dependencies](https://circleci.com/gh/coxmediagroup/cm-anvato.png?style=shield&circle-token=:circle-token)](./package.json)
 [![Dependencies](https://img.shields.io/david/coxmediagroup/cm-anvato.svg)](./package.json)
@@ -14,6 +14,12 @@ This module is also exposed as global variable `cmanvato` in `dist/cmanvato.min.
 This JavaScript module is intended for use with this Methode tag:
 
     /PortalConfig/common/video/<version>/player.jpt
+
+If you building your own playlist you may optionally override the video id set:
+
+    <p:include url="/PortalConfig/common/video/<version>/player.jpt">
+        <p:param name="videoIdOverride" value="234455,3340289" />
+    </p:include>
 
 This module includes support for metrics and ads.
 
