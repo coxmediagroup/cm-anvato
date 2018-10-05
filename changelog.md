@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 2
 
+#### [2.19.0]
+- Made moat optional
+
 #### [2.18.3]
 - Allow custom video id set to be passed into Methode include `videoIdOverride`
 
