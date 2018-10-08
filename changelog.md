@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 2
 
+#### [2.19.1]
+- Changed the way moat is optional by using the site environment varialbe directly
+
 #### [2.19.0]
 - Made moat optional
 
