@@ -20,24 +20,43 @@ module.exports = function () {
         if (window.DDO && window.DDO.action) {
             var id = event.sender;
 
+            // CUSTOM EVENT: 10 second mark
+            window.anvp.p0.getCurrentTime(function (time) {
+                if(Math.floor(time) === 10) {
+                    if(!playCache.tenSecondMark) {
+                        playCache.tenSecondMark = true;
+                        fire('videoViewCheckpoint', id);
+                    }
+                }
+            });
+
             if (event.name === 'METADATA_LOADED') {
                 playCache[id] = false;
+                playCache.tenSecondMark = false;
                 meta[id] = meta[id] || {};
                 meta[id].videoid = event.args[1];
                 meta[id].tags = event.args[2].tags;
                 meta[id].title = event.args[2].title;
                 meta[id].duration = event.args[2].duration;
             } else if (event.name === 'AD_STARTED') {
-                playCache[id] = true;
-                fire('videoStart', id);
+                fire('videoAdStart', id);
+            } else if (event.name === 'AD_COMPLETED') {
+                fire('videoAdComplete', id);
             } else if (event.name === 'VIDEO_STARTED') {
                 // Ensure videoStart action only fires once per content.
                 if (!playCache[id]) {
                     fire('videoStart', id);
+                    playCache[id] = true;
                 }
                 fire('videoContentPlay', id);
             } else if (event.name === 'USER_PAUSE') {
                 fire('videoPause', id);
+            } else if (event.name === 'VIDEO_FIRST_QUARTILE') {
+                fire('videoView25Checkpoint', id);
+            } else if (event.name === 'VIDEO_MID_POINT') {
+                fire('videoView50Checkpoint', id);
+            } else if (event.name === 'VIDEO_THIRD_QUARTILE') {
+                fire('videoView75Checkpoint', id);
             } else if (event.name === 'VIDEO_COMPLETED') {
                 fire('videoComplete', id);
             }
