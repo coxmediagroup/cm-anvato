@@ -20,19 +20,8 @@ module.exports = function () {
         if (window.DDO && window.DDO.action) {
             var id = event.sender;
 
-            // CUSTOM EVENT: 10 second mark
-            window.anvp.p0.getCurrentTime(function (time) {
-                if(Math.floor(time) === 10) {
-                    if(!playCache.tenSecondMark) {
-                        playCache.tenSecondMark = true;
-                        fire('videoViewCheckpoint', id);
-                    }
-                }
-            });
-
             if (event.name === 'METADATA_LOADED') {
                 playCache[id] = false;
-                playCache.tenSecondMark = false;
                 meta[id] = meta[id] || {};
                 meta[id].videoid = event.args[1];
                 meta[id].tags = event.args[2].tags;
