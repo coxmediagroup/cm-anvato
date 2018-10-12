@@ -38,6 +38,7 @@ module.exports = function () {
                 meta[id].tags = event.args[2].tags;
                 meta[id].title = event.args[2].title;
                 meta[id].duration = event.args[2].duration;
+                fire('videoPlayerLoad', id);
             } else if (event.name === 'AD_STARTED') {
                 fire('videoAdStart', id);
             } else if (event.name === 'AD_COMPLETED') {
