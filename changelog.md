@@ -5,8 +5,11 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 2
 
+#### [2.19.2]
+- Added player events for DDO actions (ad start/complete; video load, pause, playback percentiles)
+
 #### [2.19.1]
-- Changed the way moat is optional by using the site environment varialbe directly
+- Changed the way moat is optional by using the site environment variable directly
 
 #### [2.19.0]
 - Made moat optional

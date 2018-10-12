@@ -27,17 +27,26 @@ module.exports = function () {
                 meta[id].tags = event.args[2].tags;
                 meta[id].title = event.args[2].title;
                 meta[id].duration = event.args[2].duration;
+                fire('videoPlayerLoad', id);
             } else if (event.name === 'AD_STARTED') {
-                playCache[id] = true;
-                fire('videoStart', id);
+                fire('videoAdStart', id);
+            } else if (event.name === 'AD_COMPLETED') {
+                fire('videoAdComplete', id);
             } else if (event.name === 'VIDEO_STARTED') {
                 // Ensure videoStart action only fires once per content.
                 if (!playCache[id]) {
                     fire('videoStart', id);
+                    playCache[id] = true;
                 }
                 fire('videoContentPlay', id);
             } else if (event.name === 'USER_PAUSE') {
                 fire('videoPause', id);
+            } else if (event.name === 'VIDEO_FIRST_QUARTILE') {
+                fire('videoView25Checkpoint', id);
+            } else if (event.name === 'VIDEO_MID_POINT') {
+                fire('videoView50Checkpoint', id);
+            } else if (event.name === 'VIDEO_THIRD_QUARTILE') {
+                fire('videoView75Checkpoint', id);
             } else if (event.name === 'VIDEO_COMPLETED') {
                 fire('videoComplete', id);
             }
