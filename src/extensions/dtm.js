@@ -71,7 +71,7 @@ function fire(name, id) {
             videoPlayer: 'Anvato Universal Player-' + id,
             videoPlayType: player.mergedConfig.autoplay ? 'auto-play' : 'manual play',
             videoSiteAccountID: player.mergedConfig.accessKey,
-            videoSecondsViewed: time,
+            videoSecondsViewed: Math.round(time),
             videoSource: 'Anvato',
             videoTopics: meta[id].tags,
             videoTotalTime: meta[id].duration
