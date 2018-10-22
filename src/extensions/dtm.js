@@ -37,6 +37,14 @@ module.exports = function () {
                 }
             } else if (event.name === 'AD_STARTED') {
                 fire('videoAdStart', id);
+
+                // If playCache[id] is still undefined here,
+                // then this must be a preroll ad,
+                // so fire videoStart and validate playCache[id]
+                if (!playCache[id]) {
+                    fire('videoStart', id);
+                    playCache[id] = true;
+                }
             } else if (event.name === 'AD_COMPLETED') {
                 fire('videoAdComplete', id);
             } else if (event.name === 'VIDEO_STARTED') {
