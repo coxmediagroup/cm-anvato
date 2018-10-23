@@ -2,7 +2,9 @@ var events = require('../util/event-handler.js'),
     // Used to filter duplicate play events with pre-roll.
     playCache = {},
     // Warehouse of metadata by player id.
-    meta = {};
+    meta = {},
+    // Used to trigger videoPlayerLoad once per session
+    videoPlayerLoaded = false;
 
 /**
  * Connect player events to DTM.
@@ -27,9 +29,22 @@ module.exports = function () {
                 meta[id].tags = event.args[2].tags;
                 meta[id].title = event.args[2].title;
                 meta[id].duration = event.args[2].duration;
-                fire('videoPlayerLoad', id);
+                
+                // Ensure videoPlayerLoad action fires only once per session.
+                if(!videoPlayerLoaded) {
+                    fire('videoPlayerLoad', id);
+                    videoPlayerLoaded = true;
+                }
             } else if (event.name === 'AD_STARTED') {
                 fire('videoAdStart', id);
+
+                // If playCache[id] is still undefined here,
+                // then this must be a preroll ad,
+                // so fire videoStart and validate playCache[id]
+                if (!playCache[id]) {
+                    fire('videoStart', id);
+                    playCache[id] = true;
+                }
             } else if (event.name === 'AD_COMPLETED') {
                 fire('videoAdComplete', id);
             } else if (event.name === 'VIDEO_STARTED') {
@@ -71,7 +86,7 @@ function fire(name, id) {
             videoPlayer: 'Anvato Universal Player-' + id,
             videoPlayType: player.mergedConfig.autoplay ? 'auto-play' : 'manual play',
             videoSiteAccountID: player.mergedConfig.accessKey,
-            videoSecondsViewed: time,
+            videoSecondsViewed: Math.round(time),
             videoSource: 'Anvato',
             videoTopics: meta[id].tags,
             videoTotalTime: meta[id].duration
