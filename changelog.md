@@ -7,7 +7,7 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 #### [2.19.3]
 - Fixes to player events/DDO actions:
-  -- fire videoStart after pre-roll ad, if any
+  -- fire videoStart before pre-roll ad, if any
   -- fire videoPlayerLoad once per session per player
   -- round videoSecondsViewed to integer
 
