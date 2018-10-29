@@ -1,6 +1,6 @@
 var loadPlayer = require('./load-player.js'),
     options = require('./util/environment-options.js'),
-    bundle = options.stage ? 'stage' : 'prod',
+    bundle = 'stage',
     ids = require('./util/id-factory.js');
 
 // Ensure `anvload.js` has been loaded before loading any players.
