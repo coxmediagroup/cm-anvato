@@ -91,5 +91,10 @@ function fire(name, id) {
             videoTopics: meta[id].tags,
             videoTotalTime: meta[id].duration
         });
+
+        // Where auto-play should be valid after *any* (manually-started) video has *completed*
+        if(name === "videoComplete" && player.mergedConfig.autoplayOnFirstComplete && !player.mergedConfig.autoplay) {
+            player.mergedConfig.autoplay = true;
+        }
     });
 }
