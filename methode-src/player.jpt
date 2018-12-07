@@ -46,7 +46,7 @@
             class="anvato-player"
             data-videoid="${videoId}"
             data-autoplay="${cacheScope.autoplay or false}"
-            data-autoplay-on-first-complete="${cacheScope.autoplayOnFirstComplete or false}"
+            data-anv-autoplay-on-first-complete="${cacheScope.autoplayOnFirstComplete or false}"
             data-muted="${cacheScope.muted or false}"
             data-recom="${empty cacheScope.autoadvance ? true : cacheScope.autoadvance}"
             data-topics="${topics}"
