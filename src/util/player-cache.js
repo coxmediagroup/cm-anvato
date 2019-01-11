@@ -1,6 +1,10 @@
-var objectValues = require('./object-values.js'),
-    players = {},
-    requests = {};
+var objectValues = require('./object-values.js');
+
+// Make global for temporary Turbolinks fix.
+window.cmAnvatoCache = window.cmAnvatoCache || {
+    players: {},
+    requests: {}
+};
 
 module.exports = {
     /**
@@ -8,14 +12,14 @@ module.exports = {
      */
     get: function (id, resolve) {
         if (!id) {
-            resolve(objectValues(players));
-        } else if (id in players) {
+            resolve(objectValues(cmAnvatoCache.players));
+        } else if (id in cmAnvatoCache.players) {
             // Player already exists, so resolve immediately.
-            resolve(players[id]);
+            resolve(cmAnvatoCache.players[id]);
         } else {
             // Cache this request until the player exists.
-            requests[id] = requests[id] || [];
-            requests[id].push(resolve);
+            cmAnvatoCache.requests[id] = cmAnvatoCache.requests[id] || [];
+            cmAnvatoCache.requests[id].push(resolve);
         }
     },
     /**
@@ -24,15 +28,15 @@ module.exports = {
      */
     add: function (id, player) {
         // Cache this player.
-        players[id] = player;
+        cmAnvatoCache.players[id] = player;
 
         // Resolve any outstanding requests for this player.
-        if (id in requests) {
-            requests[id].forEach(function (resolve) {
+        if (id in cmAnvatoCache.requests) {
+            cmAnvatoCache.requests[id].forEach(function (resolve) {
                 resolve(player);
             });
             // Promises resolve only once.
-            requests[id] = [];
+            cmAnvatoCache.requests[id] = [];
         }
     }
 };
