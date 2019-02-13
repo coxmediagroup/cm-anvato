@@ -5,7 +5,8 @@ var parseSettings = require('./util/parse-settings.js'),
     bindChartbeat = require('./extensions/chartbeat/bind-meta.js'),
     parseAttribute = require('./util/parse-attribute.js'),
     cache = require('./util/player-cache.js'),
-    cmg = require('./extensions/cmg.js');
+    cmg = require('./extensions/cmg.js'),
+    mergeLeft = require('./util/map-merge-left.js');
 
 /**
  * # Load Player
@@ -41,6 +42,11 @@ module.exports = function (id, container) {
             });
             config[name] = parseAttribute(pair.value);
         }
+    }
+
+    var windowConfig = window[id + 'Config'];
+    if (windowConfig) {
+        config = mergeLeft(config, windowConfig);
     }
 
     // Load the video player.
