@@ -8,7 +8,7 @@ module.exports = function (player, id, container) {
 
     player.on('beforeVideoLoad', function (video, initConfig) {
         // Check if this video should show pre-roll.
-        if (options.noads || initConfig.plugins.dfp.clientSide.adTagUrl === 'MCP_ENFORCED_DISABLE') {
+        if (options.noads || typeof initConfig.plugins.dfp === 'undefined' || initConfig.plugins.dfp.clientSide.adTagUrl === 'MCP_ENFORCED_DISABLE') {
             // Disable ads for this video.
             console.warn('[cmAnvato] Pre-roll DISABLE was requested for player', id);
             return false;
