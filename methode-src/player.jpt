@@ -30,6 +30,8 @@
     </c:otherwise>
 </c:choose>
 
+<cmg:videoAdTargetingUrl />
+
 <%-- Drop in the player or report errors to NewRelic. --%>
 <c:choose>
     <c:when test="${empty videoId or videoId eq '0'}">
