@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 2
 
+#### [2.21.1]
+- Changed player.jpt to include call to videoAdTargetingUrl customtag
+
 #### [2.19.3]
 - Fixes to player events/DDO actions:
   -- fire videoStart before pre-roll ad, if any
