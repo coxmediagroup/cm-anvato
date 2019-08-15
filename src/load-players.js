@@ -1,6 +1,5 @@
 var loadPlayer = require('./load-player.js'),
     options = require('./util/environment-options.js'),
-    bundle = options.stage ? 'stage' : 'prod',
     ids = require('./util/id-factory.js');
 
 // Ensure `anvload.js` has been loaded before loading any players.
@@ -11,11 +10,19 @@ module.exports = function () {
     } else {
         // Append `anvload.js` and then load players once it's ready.
         var script = document.createElement('script');
-        script.src = 'https://w3.cdn.anvato.net/player/' + bundle + '/v3/scripts/anvload.js';
+        script.src = getAnvatoUrl();
         script.onload = loadPlayers;
         document.body.appendChild(script);
     }
 };
+
+function getAnvatoUrl() {
+    if (window.CMG_ANVATO_URL) {
+        return window.CMG_ANVATO_URL;
+    }
+    var bundle = options.stage ? 'stage' : 'prod';
+    return 'https://w3.cdn.anvato.net/player/' + bundle + '/v3/scripts/anvload.js';
+}
 
 // Loop through all the `anvato-player` divs and load video players.
 function loadPlayers() {
