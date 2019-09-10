@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 3
 
+#### [3.0.1]
+- Ensure videoPlayerLoad action fires only once per session per video player
+
 #### [3.0.0]
 - Added the skip-ad and 10-sec checkpoint events
 
