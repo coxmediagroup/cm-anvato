@@ -29,7 +29,7 @@ module.exports = function () {
                 meta[id].tags = event.args[2].tags;
                 meta[id].title = event.args[2].title;
                 meta[id].duration = event.args[2].duration;
-                
+
                 // Ensure videoPlayerLoad action fires only once per session.
                 if(!videoPlayerLoaded) {
                     fire('videoPlayerLoad', id);
@@ -45,7 +45,7 @@ module.exports = function () {
                     fire('videoStart', id);
                     playCache[id] = true;
                 }
-            } else if (event.name === 'AD_COMPLETED') {
+            } else if (event.name === 'AD_COMPLETED' || event.name === 'AD_SKIPPED') {
                 fire('videoAdComplete', id);
             } else if (event.name === 'VIDEO_STARTED') {
                 // Ensure videoStart action only fires once per content.
@@ -56,6 +56,9 @@ module.exports = function () {
                 fire('videoContentPlay', id);
             } else if (event.name === 'USER_PAUSE') {
                 fire('videoPause', id);
+            } else if (event.name === 'TIME_UPDATED' && event.args && event.args[0] === 10) {
+                // 10 sec checkpoint
+                fire('videoViewCheckpoint', id);
             } else if (event.name === 'VIDEO_FIRST_QUARTILE') {
                 fire('videoView25Checkpoint', id);
             } else if (event.name === 'VIDEO_MID_POINT') {

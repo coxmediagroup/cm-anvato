@@ -3,6 +3,11 @@ All notable changes to the repo will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 For information on Anvato Player changes, see their [changelog](https://dev.anvato.net/api/player#release-notes).
 
+## Version 3
+
+#### [3.0.0]
+- Added the skip-ad and 10-sec checkpoint events
+
 ## Version 2
 
 #### [2.21.1]
