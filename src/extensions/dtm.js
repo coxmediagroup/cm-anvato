@@ -2,9 +2,7 @@ var events = require('../util/event-handler.js'),
     // Used to filter duplicate play events with pre-roll.
     playCache = {},
     // Warehouse of metadata by player id.
-    meta = {},
-    // Used to trigger videoPlayerLoad once per session
-    videoPlayerLoaded = false;
+    meta = {};
 
 /**
  * Connect player events to DTM.
@@ -23,18 +21,17 @@ module.exports = function () {
             var id = event.sender;
 
             if (event.name === 'METADATA_LOADED') {
+                // Ensure videoPlayerLoad action fires only once per session per video.
+                if(!meta[id]) {
+                    fire('videoPlayerLoad', id);
+                }
+
                 playCache[id] = false;
                 meta[id] = meta[id] || {};
                 meta[id].videoid = event.args[1];
                 meta[id].tags = event.args[2].tags;
                 meta[id].title = event.args[2].title;
                 meta[id].duration = event.args[2].duration;
-
-                // Ensure videoPlayerLoad action fires only once per session.
-                if(!videoPlayerLoaded) {
-                    fire('videoPlayerLoad', id);
-                    videoPlayerLoaded = true;
-                }
             } else if (event.name === 'AD_STARTED') {
                 fire('videoAdStart', id);
 
