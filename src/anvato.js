@@ -55,6 +55,9 @@ module.exports = {
         anvp.common.config = anvp.common.config || {};
         anvp.common.config[name] = value;
     },
+    /**
+     * Allow for individual player plugin configs
+     */
     setPlayerInitPlugins: function (playerId, plugins) {
         initPlugins.set(playerId, plugins);
     },

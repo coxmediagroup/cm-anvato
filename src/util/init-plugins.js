@@ -1,3 +1,7 @@
+/**
+ * Allow for setting and retrieving individual player initial plugin configs
+ */
+
 var initPlugins = {};
 
 module.exports = {

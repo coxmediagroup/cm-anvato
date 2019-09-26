@@ -44,6 +44,8 @@ module.exports = function (id, container) {
         }
     }
 
+    // If set by setPlayerInitPlugins() on the page,
+    // then use player initial plugin configs
     var playerInitPlugins = initPlugins.get(id);
     if (playerInitPlugins) {
         config.plugins = playerInitPlugins;
