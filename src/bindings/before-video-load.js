@@ -14,24 +14,23 @@ module.exports = function (player, id, container) {
             return false;
         }
 
+        initConfig.plugins = initConfig.plugins || {};
+        initConfig.plugins.dfp = initConfig.plugins.dfp || {};
+        initConfig.plugins.dfp.clientSide = initConfig.plugins.dfp.clientSide || {};
+
         // Update the DFP plugin with new ad targeting.
         playCount += 1;
-        return {
-            plugins: {
-                dfp: {
-                    clientSide: buildAdConfig(
-                        scrubMetadata(video),
-                        id,
-                        container.getAttribute('data-cmsid') || window.cmg.anvatoConf.cmsid,
-                        initConfig.plugins.dfp.clientSide.adTagUrl,
-                        window.parseInt(container.getAttribute('data-dfp-timeout')),
-                        container.getAttribute('data-adunit'),
-                        // Only the first video played uses the VPX's topics and categories.
-                        playCount === 1 ? container.getAttribute('data-topics') : [],
-                        playCount === 1 ? container.getAttribute('data-categories') : []
-                    )
-                }
-            }
-        };
+        initConfig.plugins.dfp.clientSide = buildAdConfig(
+            scrubMetadata(video),
+            id,
+            container.getAttribute('data-cmsid') || window.cmg.anvatoConf.cmsid,
+            initConfig.plugins.dfp.clientSide.adTagUrl,
+            window.parseInt(container.getAttribute('data-dfp-timeout')),
+            container.getAttribute('data-adunit'),
+            // Only the first video played uses the VPX's topics and categories.
+            playCount === 1 ? container.getAttribute('data-topics') : [],
+            playCount === 1 ? container.getAttribute('data-categories') : []
+        );
+        return initConfig;
     });
 };
