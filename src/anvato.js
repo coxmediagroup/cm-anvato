@@ -2,7 +2,8 @@ var loadPlayers = require('./load-players.js'),
     setupDTM = require('./extensions/dtm.js'),
     setupChartbeat = require('./extensions/chartbeat/setup.js'),
     cache = require('./util/player-cache.js'),
-    events = require('./util/event-handler.js');
+    events = require('./util/event-handler.js'),
+    initPlugins = require('./util/init-plugins.js');
 
 module.exports = {
     /**
@@ -53,6 +54,12 @@ module.exports = {
         anvp.common = anvp.common || {};
         anvp.common.config = anvp.common.config || {};
         anvp.common.config[name] = value;
+    },
+    /**
+     * Allow for individual player plugin configs
+     */
+    setPlayerInitPlugins: function (playerId, plugins) {
+        initPlugins.set(playerId, plugins);
     },
     /**
      * Pause all players in the page.

@@ -3,6 +3,7 @@ var parseSettings = require('./util/parse-settings.js'),
     bindBeforeVideoLoad = require('./bindings/before-video-load.js'),
     nrvideo = require('./extensions/newrelic.min.js'),
     bindChartbeat = require('./extensions/chartbeat/bind-meta.js'),
+    initPlugins = require('./util/init-plugins.js'),
     parseAttribute = require('./util/parse-attribute.js'),
     cache = require('./util/player-cache.js'),
     cmg = require('./extensions/cmg.js');
@@ -41,6 +42,13 @@ module.exports = function (id, container) {
             });
             config[name] = parseAttribute(pair.value);
         }
+    }
+
+    // If set by setPlayerInitPlugins() on the page,
+    // then use player initial plugin configs
+    var playerInitPlugins = initPlugins.get(id);
+    if (playerInitPlugins) {
+        config.plugins = playerInitPlugins;
     }
 
     // Load the video player.

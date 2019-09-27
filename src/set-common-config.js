@@ -28,7 +28,8 @@ anvp.common.config = mergeLeft({
 // Shallow merge in default plugins.
 var plugins = {
     comscore: {
-        clientId: 6035944
+        clientId: 6035944,
+        script: "//w3.cdn.anvato.net/player/prod/v3/plugins/comscore/comscoreplugin.min.js"
     },
     dfp: {
         clientSide: {
