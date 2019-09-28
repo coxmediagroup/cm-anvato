@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 3
 
+#### [3.1.1]
+- Ensure the DFP client side can be built before assigning it in the beforeVideoLoad binding
+
 #### [3.1.0]
 - Allow for individual player initial plugin configs
 - Modify and return the initial config in the beforeVideoLoad binding
