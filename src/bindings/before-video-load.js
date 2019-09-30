@@ -7,30 +7,35 @@ module.exports = function (player, id, container) {
     var playCount = 0;
 
     player.on('beforeVideoLoad', function (video, initConfig) {
+        var initDfp = initConfig.plugins.dfp;
+
         // Check if this video should show pre-roll.
-        if (options.noads || typeof initConfig.plugins.dfp === 'undefined' || initConfig.plugins.dfp.clientSide.adTagUrl === 'MCP_ENFORCED_DISABLE') {
+        if (options.noads || typeof initDfp === 'undefined' || typeof initDfp.clientSide === 'undefined' || initDfp.clientSide.adTagUrl === 'MCP_ENFORCED_DISABLE') {
             // Disable ads for this video.
             console.warn('[cmAnvato] Pre-roll DISABLE was requested for player', id);
             return false;
         }
 
-        initConfig.plugins = initConfig.plugins || {};
-        initConfig.plugins.dfp = initConfig.plugins.dfp || {};
-        initConfig.plugins.dfp.clientSide = initConfig.plugins.dfp.clientSide || {};
-
-        // Update the DFP plugin with new ad targeting.
         playCount += 1;
-        initConfig.plugins.dfp.clientSide = buildAdConfig(
+        var dfpClientSide = buildAdConfig(
             scrubMetadata(video),
             id,
             container.getAttribute('data-cmsid') || window.cmg.anvatoConf.cmsid,
-            initConfig.plugins.dfp.clientSide.adTagUrl,
+            initDfp.clientSide.adTagUrl,
             window.parseInt(container.getAttribute('data-dfp-timeout')),
             container.getAttribute('data-adunit'),
             // Only the first video played uses the VPX's topics and categories.
             playCount === 1 ? container.getAttribute('data-topics') : [],
             playCount === 1 ? container.getAttribute('data-categories') : []
         );
+
+        if (dfpClientSide) {
+            // Update the DFP plugin with new ad targeting.
+            initConfig.plugins.dfp.clientSide = dfpClientSide;
+        } else {
+            console.warn('[cmAnvato] was not able to build client-side ad config. Using initial configs for player', id);
+        }
+
         return initConfig;
     });
 };
