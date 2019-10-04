@@ -9,12 +9,14 @@ module.exports = function () {
     window._cbv_strategies.push(Strategy);
 
     // Set Chartbeat config.
-    var host = location.hostname,
-        start = host.lastIndexOf('.', host.lastIndexOf('.') - 1);
+    var host = window.location.hostname,
+        start = host.lastIndexOf('.', host.lastIndexOf('.') - 1),
+        uid = (host === "www.ajc.com") ? 66001 : 31585;
+
     window._sf_async_config = {
         autoDetect: false,
         domain: host.substring(start + 1),
-        uid: 31585,
+        uid: uid,
         useCanonical: true
     };
     window._sf_endpt = window.Date.now();
