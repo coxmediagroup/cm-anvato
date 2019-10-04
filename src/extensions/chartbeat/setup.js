@@ -9,14 +9,16 @@ module.exports = function () {
     window._cbv_strategies.push(Strategy);
 
     // Set Chartbeat config.
-    var host = location.hostname,
+    var host = window.location.hostname,
         start = host.lastIndexOf('.', host.lastIndexOf('.') - 1);
-    window._sf_async_config = {
-        autoDetect: false,
-        domain: host.substring(start + 1),
-        uid: 31585,
-        useCanonical: true
-    };
+
+    window._sf_async_config = window._sf_async_config || {};
+
+    window._sf_async_config.autoDetect = false;
+    window._sf_async_config.domain = host.substring(start + 1);
+    window._sf_async_config.uid = (host === "www.ajc.com") ? 66001 : 31585;
+    window._sf_async_config.useCanonical = true;
+
     window._sf_endpt = window.Date.now();
 
     // Load the Chartbeat script.

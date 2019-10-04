@@ -5,6 +5,12 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 3
 
+#### [3.1.3]
+- Avoid overwriting an existing Chartbeat configuration on the page
+
+#### [3.1.2]
+- Use separate Chartbeat ID for AJC
+
 #### [3.1.1]
 - Ensure the DFP client side can be built before assigning it in the beforeVideoLoad binding
 
