@@ -10,15 +10,15 @@ module.exports = function () {
 
     // Set Chartbeat config.
     var host = window.location.hostname,
-        start = host.lastIndexOf('.', host.lastIndexOf('.') - 1),
-        uid = (host === "www.ajc.com") ? 66001 : 31585;
+        start = host.lastIndexOf('.', host.lastIndexOf('.') - 1);
 
-    window._sf_async_config = {
-        autoDetect: false,
-        domain: host.substring(start + 1),
-        uid: uid,
-        useCanonical: true
-    };
+    window._sf_async_config = window._sf_async_config || {};
+
+    window._sf_async_config.autoDetect = false;
+    window._sf_async_config.domain = host.substring(start + 1);
+    window._sf_async_config.uid = (host === "www.ajc.com") ? 66001 : 31585;
+    window._sf_async_config.useCanonical = true;
+
     window._sf_endpt = window.Date.now();
 
     // Load the Chartbeat script.
