@@ -16,7 +16,7 @@ module.exports = function () {
 
     window._sf_async_config.autoDetect = false;
     window._sf_async_config.domain = host.substring(start + 1);
-    window._sf_async_config.uid = (host === "www.ajc.com") ? 66001 : 31585;
+    window._sf_async_config.uid = (/ajc.com$/.test(host)) ? 66001 : 31585;
     window._sf_async_config.useCanonical = true;
 
     window._sf_endpt = window.Date.now();
