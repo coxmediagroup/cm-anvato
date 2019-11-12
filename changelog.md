@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 3
 
+#### [3.1.5]
+- Update Comscore configuration with the new CMG client ID
+
 #### [3.1.4]
 - Allow the AJC Chartbeat ID to work in lower environments for testing
 
