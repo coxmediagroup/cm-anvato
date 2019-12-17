@@ -51,7 +51,6 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, adunit, vpxTopic
             owner_id: video.owner_id,
             kw: videoTopics,
             topics: cmg.adconf.targeting.topics,
-            section: cmg.adconf.targeting.categories,
             weather: cmg.adconf.targeting.weather,
             temp_range: cmg.adconf.targeting.temp_range,
             sky: cmg.adconf.targeting.sky,
