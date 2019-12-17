@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 3
 
+#### [3.1.6]
+- Update keyValues to separate video tags/categories from the page topics in the custom parameters
+
 #### [3.1.5]
 - Update Comscore configuration with the new CMG client ID
 

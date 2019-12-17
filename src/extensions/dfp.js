@@ -29,16 +29,12 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, adunit, vpxTopic
         breakpoint = 'medium';
     }
 
-    // Merge all topics.
-    var topics = [].concat(
-        cmg.adconf.targeting.topics,
+    var videoTopics = [].concat(
         vpxTopics,
         video.tags
     ).toString();
 
-    // Merge all categories.
-    var categories = [].concat(
-        cmg.adconf.targeting.categories,
+    var videoCategories = [].concat(
         vpxCategories,
         video.categories
     ).toString();
@@ -50,11 +46,11 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, adunit, vpxTopic
         adTagUrl: adtag,
         hideNonLinearAdsOnClose: true,
         keyValues: {
-            category: categories,
+            category: videoCategories,
             video: video.upload_id,
             owner_id: video.owner_id,
-            kw: topics,
-            topics: topics,
+            kw: videoTopics,
+            topics: cmg.adconf.targeting.topics,
             weather: cmg.adconf.targeting.weather,
             temp_range: cmg.adconf.targeting.temp_range,
             sky: cmg.adconf.targeting.sky,
