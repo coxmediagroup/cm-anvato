@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 3
 
+#### [3.1.7]
+- Fixed the comma issue that happens when concatenating null with the topics array
+
 #### [3.1.6]
 - Update keyValues to separate video tags/categories from the page topics in the custom parameters
 

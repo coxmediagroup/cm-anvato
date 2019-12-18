@@ -30,13 +30,13 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, adunit, vpxTopic
     }
 
     var videoTopics = [].concat(
-        vpxTopics,
-        video.tags
+        vpxTopics || [],
+        video.tags || []
     ).toString();
 
     var videoCategories = [].concat(
-        vpxCategories,
-        video.categories
+        vpxCategories || [],
+        video.categories || []
     ).toString();
 
     // Build the new DFP plugin config.
@@ -81,9 +81,9 @@ module.exports = function (video, id, cmsid, adtag, dfpTimeout, adunit, vpxTopic
         '\n\nCategory and Tag Information:\n-------------' +
         '\n - Anvato MCP:\n\t[TAGS] ' + video.tags +
         '\n\t[CATEGORIES] ' + video.categories +
-        '\n - Methode VPX:\n\t[TOPICS] ' + vpxTopics +
+        '\n - VPX:\n\t[TOPICS] ' + vpxTopics +
         '\n\t[CATEGORIES] ' + vpxCategories +
-        '\n - Methode PAGE:\n\t[TOPICS] ' + cmg.adconf.targeting.topics +
+        '\n - CMS PAGE:\n\t[TOPICS] ' + cmg.adconf.targeting.topics +
         '\n\t[CATEGORIES] ' + cmg.adconf.targeting.categories +
         '\n\nSystem Information:\n-------------\n' +
         'cm-anvato version ' + version +
