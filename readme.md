@@ -1,5 +1,5 @@
 # cm-anvato
-*v3.1.7*
+*v3.1.8*
 
 [![Dependencies](https://circleci.com/gh/coxmediagroup/cm-anvato.png?style=shield&circle-token=:circle-token)](./package.json)
 [![Dependencies](https://img.shields.io/david/coxmediagroup/cm-anvato.svg)](./package.json)
