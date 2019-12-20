@@ -64,6 +64,12 @@ module.exports = function () {
                 fire('videoView75Checkpoint', id);
             } else if (event.name === 'VIDEO_COMPLETED') {
                 fire('videoComplete', id);
+            } else if (event.name === 'AUTOPLAY_STATUS') {
+                meta[id] = meta[id] || {};
+                // Check if browser policy overrode player autoplay
+                if (event.args[0] === 'BLOCKED') {
+                    meta[id].autoplayBlocked = true;
+                }
             }
         }
     };
@@ -79,12 +85,18 @@ function fire(name, id) {
 
     // Accommodate for the async player method.
     player.getCurrentTime(function (time) {
+        var videoPlayType;
+        if (meta[id].autoplayBlocked) {
+            videoPlayType = 'manual play';
+        } else {
+            videoPlayType = player.mergedConfig.autoplay ? 'auto-play' : 'manual play';
+        }
         window.DDO.action(name, {
             videoContentType: player.mergedConfig.live ? 'live' : 'vod',
             videoId: meta[id].videoid,
             videoName: meta[id].title,
             videoPlayer: 'Anvato Universal Player-' + id,
-            videoPlayType: player.mergedConfig.autoplay ? 'auto-play' : 'manual play',
+            videoPlayType: videoPlayType,
             videoSiteAccountID: player.mergedConfig.accessKey,
             videoSecondsViewed: Math.round(time),
             videoSource: 'Anvato',
