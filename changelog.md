@@ -5,6 +5,9 @@ For information on Anvato Player changes, see their [changelog](https://dev.anva
 
 ## Version 3
 
+#### [3.1.9]
+- Use Chartbeat ID for sites other than AJC, i.e. Dayton sites.
+
 #### [3.1.8]
 - Update player autoplay status in analytics if the browser blocks it
 
