@@ -26,12 +26,16 @@ module.exports = {
     /**
      * Setup all video players in the page.
      */
-    setup: function () {
+    setup: function (opts) {
         // Apply common config for all players.
         require('./set-common-config.js');
 
+        opts = opts || {};
+
         // Setup video metrics.
-        setupChartbeat();
+        if (opts.setupChartbeat) {
+            setupChartbeat();
+        }
         setupDTM();
 
         // Load config and scripts for all the players.
